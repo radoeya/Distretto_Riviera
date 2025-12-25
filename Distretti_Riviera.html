@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riviera & Biasca: Report Strategico Aggiornato</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #c0392b; 
+            --accent: #3498db;
+            --bg-color: #f8f9fa;
+            --glass: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+            --font-main: 'Inter', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-main); color: var(--primary); background: var(--bg-color); line-height: 1.6; overflow-x: hidden; }
+
+        /* Utilities */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .section-padding { padding: 80px 0; }
+        .bg-light { background: #fff; }
+        .text-center { text-align: center; }
+        .glass-panel {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+        }
+
+        /* Nav */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 15px 0;
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-serif); font-weight: 700; font-size: 1.5rem; color: var(--primary); }
+        .logo span { color: var(--secondary); }
+        .nav-links { display: flex; list-style: none; gap: 30px; }
+        .nav-links a { text-decoration: none; color: var(--primary); font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--secondary); }
+
+        /* Hero */
+        .hero {
+            height: 85vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; position: relative; color: white;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        }
+        .hero-bg-img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 0; opacity: 0.5; mix-blend-mode: overlay;
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; padding: 20px; }
+        .hero h1 { font-family: var(--font-serif); font-size: 3.5rem; margin-bottom: 20px; line-height: 1.1; }
+        .hero p { font-size: 1.25rem; margin-bottom: 30px; opacity: 0.95; }
+        .btn {
+            display: inline-block; padding: 12px 30px; background: var(--secondary); color: white;
+            border-radius: 50px; text-decoration: none; font-weight: 600; transition: transform 0.2s;
+            border: none; cursor: pointer;
+        }
+        .btn:hover { transform: translateY(-3px); background: #a93226; }
+        .btn-outline { background: transparent; border: 2px solid white; margin-left: 10px; }
+        .btn-outline:hover { background: white; color: var(--primary); }
+
+        /* Toggle Switch */
+        .controls-wrapper { display: flex; justify-content: center; margin-bottom: 40px; align-items: center; gap: 15px; }
+        .switch { position: relative; display: inline-block; width: 60px; height: 34px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--secondary); }
+        input:checked + .slider:before { transform: translateX(26px); }
+        .switch-label { font-weight: bold; font-size: 1.1rem; }
+
+        /* Charts Grid - Layout Aggiornato */
+        .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 30px; margin-bottom: 40px; }
+        .chart-box { padding: 25px; height: 400px; display: flex; flex-direction: column; }
+        .chart-full { grid-column: 1 / -1; height: 500px; }
+        
+        h3.chart-title { font-size: 1.1rem; margin-bottom: 15px; color: var(--primary); font-weight: 700; border-left: 4px solid var(--secondary); padding-left: 10px; }
+
+        /* SWOT Section */
+        .swot-section { background: var(--primary); color: white; }
+        .swot-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+        .swot-list { list-style: none; }
+        .swot-list li { margin-bottom: 15px; padding-left: 30px; position: relative; }
+        .swot-list li:before { font-family: "Font Awesome 6 Free"; position: absolute; left: 0; top: 0; font-weight: 900; }
+        .swot-strength li:before { content: "\f00c"; color: #2ecc71; }
+        .swot-weakness li:before { content: "\f071"; color: #e74c3c; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .gallery-img { width: 100%; height: 160px; object-fit: cover; border-radius: 8px; cursor: pointer; transition: opacity 0.3s; border: 2px solid rgba(255,255,255,0.1); }
+        .gallery-img:hover { opacity: 0.8; border-color: var(--secondary); }
+
+        /* Cards Proposte */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { 
+            background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); 
+            transition: transform 0.3s; display: flex; flex-direction: column;
+        }
+        .card:hover { transform: translateY(-10px); }
+        .card-img { height: 200px; background-color: #eee; position: relative; }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; }
+        .card-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-tag { color: var(--secondary); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .card h3 { margin-bottom: 10px; font-family: var(--font-serif); }
+        .card p { color: #666; font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
+        .btn-link { background: none; border: none; color: var(--primary); font-weight: 700; cursor: pointer; padding: 0; text-align: left; }
+
+        /* Timeline */
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; }
+        .timeline::after { content: ''; position: absolute; width: 4px; background: var(--secondary); top: 0; bottom: 0; left: 50%; margin-left: -2px; }
+        .tl-item { padding: 10px 40px; position: relative; width: 50%; box-sizing: border-box; }
+        .tl-item::after { content: ''; position: absolute; width: 20px; height: 20px; right: -10px; background: white; border: 4px solid var(--secondary); top: 15px; border-radius: 50%; z-index: 1; }
+        .left { left: 0; text-align: right; }
+        .right { left: 50%; }
+        .right::after { left: -10px; }
+        .tl-content { padding: 20px; background: white; border-radius: 8px; box-shadow: var(--shadow); }
+
+        /* Modal */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); overflow-y: auto; }
+        .modal-content { background-color: #fff; margin: 5% auto; padding: 40px; width: 90%; max-width: 700px; border-radius: 12px; position: relative; }
+        .close { position: absolute; top: 20px; right: 25px; font-size: 30px; cursor: pointer; color: #aaa; }
+        .close:hover { color: black; }
+        
+        /* Lightbox */
+        .lightbox { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
+        .lightbox img { max-width: 90%; max-height: 90vh; border-radius: 4px; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .swot-container { grid-template-columns: 1fr; }
+            .timeline::after { left: 31px; }
+            .tl-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .tl-item::after { left: 21px; }
+            .left { text-align: left; }
+            .right { left: 0; }
+            .hero h1 { font-size: 2.5rem; }
+            .charts-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">Gruppo 7 <span>Report</span></div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#analisi">Dati & Grafici</a></li>
+                <li><a href="#swot">SWOT</a></li>
+                <li><a href="#proposte">Proposte</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero">
+        <img src="imm3.jpg" alt="Riviera Landscape" class="hero-bg-img" onerror="this.style.display='none'">
+        <div class="hero-content">
+            <h1>Riviera & Biasca:<br>Prospettive Locali</h1>
+            <p>Analisi aggiornata: evoluzione dei cluster produttivi (2017-2023) e nuove strategie di sviluppo.</p>
+            <div>
+                <a href="#analisi" class="btn">Vai ai Grafici</a>
+                <a href="#proposte" class="btn btn-outline">Vedi Proposte</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="analisi" class="section-padding">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 40px;">
+                <h2>Analisi Quantitativa & Strutturale</h2>
+                <p>Evoluzione dei settori chiave: confronto diretto 2017 vs 2023.</p>
+            </div>
+
+            <div class="controls-wrapper">
+                <span class="switch-label" style="opacity: 0.6;">2017</span>
+                <label class="switch">
+                    <input type="checkbox" id="yearToggle">
+                    <span class="slider"></span>
+                </label>
+                <span class="switch-label" style="color: var(--secondary);">2023</span>
+            </div>
+
+            <div class="charts-grid">
+                <div class="glass-panel chart-box">
+                    <h3 class="chart-title">Specializzazione (LQ)</h3>
+                    <canvas id="lqChart"></canvas>
+                    <p style="font-size:0.8rem; color:#666; margin-top:10px;"><em>Indica quanto un settore è concentrato rispetto alla media nazionale.</em></p>
+                </div>
+                
+                <div class="glass-panel chart-box">
+                    <h3 class="chart-title">Horizontal Clustering (Shc)</h3>
+                    <canvas id="shcChart"></canvas>
+                    <p style="font-size:0.8rem; color:#666; margin-top:10px;"><em>Intensità della presenza settoriale superiore all'atteso.</em></p>
+                </div>
+
+                <div class="glass-panel chart-box chart-full">
+                    <h3 class="chart-title">Nuovi Pilastri Economici (Numero Addetti)</h3>
+                    <canvas id="pillarsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="swot" class="section-padding swot-section">
+        <div class="container swot-container">
+            <div>
+                <h2>Analisi SWOT & Contesto</h2>
+                <p style="margin-bottom: 20px;">Il territorio possiede risorse uniche come il <strong>Swiss Drone Center</strong> e le cave di granito, ma deve affrontare la sfida della diversificazione funzionale.</p>
+                
+                <div style="display: flex; gap: 30px; flex-wrap: wrap;">
+                    <div style="flex:1; min-width: 250px;">
+                        <h4 style="color: #2ecc71; margin-bottom:10px;">Punti di Forza</h4>
+                        <ul class="swot-list swot-strength">
+                            <li>Cluster Edilizio Consolidato (Shc 286)</li>
+                            <li>Swiss Drone Competence Center</li>
+                            <li>Azienda Farmaceutica HAS (Cluster alto valore)</li>
+                        </ul>
+                    </div>
+                    <div style="flex:1; min-width: 250px;">
+                        <h4 style="color: #e74c3c; margin-bottom:10px;">Debolezze</h4>
+                        <ul class="swot-list swot-weakness">
+                            <li>Sottorappresentazione ICT e Servizi Finanziari</li>
+                            <li>Trasporti pubblici locali da potenziare</li>
+                            <li>Dualità tra grandi imprese e micro-attività frammentate</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="gallery-grid">
+                <img src="imma1.jpg" class="gallery-img" onclick="openLightbox(this)" onerror="this.src='https://via.placeholder.com/400x300/4ca1af/fff?text=Cascata'">
+                <img src="imm2.jpg" class="gallery-img" onclick="openLightbox(this)" onerror="this.src='https://via.placeholder.com/400x300/2c3e50/fff?text=Centro+Sportivo'">
+                <img src="cpt.jpg" class="gallery-img" onclick="openLightbox(this)" onerror="this.src='https://via.placeholder.com/400x300/e67e22/fff?text=Scuola+CPT'">
+                <img src="imm4.jpg" class="gallery-img" onclick="openLightbox(this)" onerror="this.src='https://via.placeholder.com/400x300/3498db/fff?text=Natura'">
+            </div>
+        </div>
+    </section>
+
+    <section id="proposte" class="section-padding bg-light">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 50px;">
+                <h2>Proposte di Sviluppo Strategico</h2>
+                <p>Azioni concrete basate sull'analisi dei dati e dei cluster rilevati.</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-img">
+                        <img src="cpt.jpg" onerror="this.style.background='#eee'">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-tag">Formazione</div>
+                        <h3>Riviera Tech-Craft Campus</h3>
+                        <p>Trasformazione della SPAI Biasca in un hub di competenza inter-aziendale per supportare i cluster ad alta tecnologia (Pharma, Droni).</p>
+                        <button class="btn-link" onclick="openModal(1)">Leggi dettagli <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="imm2.jpg" onerror="this.style.background='#eee'">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-tag">Industria</div>
+                        <h3>Digital Supply Chain</h3>
+                        <p>Integrazione digitale della filiera edilizia (Cluster dominante) per unire le micro-imprese tramite standard BIM condivisi.</p>
+                        <button class="btn-link" onclick="openModal(2)">Leggi dettagli <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="imm4.jpg" onerror="this.style.background='#eee'">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-tag">Turismo</div>
+                        <h3>Integrated Tourism Voucher</h3>
+                        <p>Pacchetti turistici "One-Click" che uniscono canyoning, ristorazione e pernottamento per valorizzare il territorio.</p>
+                        <button class="btn-link" onclick="openModal(3)">Leggi dettagli <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="text-center" style="margin-bottom: 40px;">Roadmap Implementativa</h2>
+            <div class="timeline">
+                <div class="tl-item left">
+                    <div class="tl-content">
+                        <h4>Fase 1: Setup & Accordi</h4>
+                        <p>Creazione consorzi Edilizia e tavoli tecnici SPAI/Aziende per definire i fabbisogni del cluster Pharma.</p>
+                    </div>
+                </div>
+                <div class="tl-item right">
+                    <div class="tl-content">
+                        <h4>Fase 2: Pilot Digitale</h4>
+                        <p>Lancio piattaforma voucher turistici e primi cantieri pilota con gestione BIM integrata.</p>
+                    </div>
+                </div>
+                <div class="tl-item left">
+                    <div class="tl-content">
+                        <h4>Fase 3: Consolidamento</h4>
+                        <p>Estensione del modello formativo (Reskilling adulti) e piena integrazione dei trasporti nell'offerta turistica.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: #222; color: white; padding: 40px 0; text-align: center;">
+        <p><strong>Gruppo 7</strong> - Consulenza Strategica</p>
+        <p style="font-size: 0.9rem; color: #888;">Gazzea, Gelardi, Gharbi, Ponzoni</p>
+        <button onclick="window.print()" class="btn btn-outline" style="margin-top: 20px; font-size: 0.8rem;">Stampa Report PDF</button>
+    </footer>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle" style="margin-bottom: 10px;">Titolo</h2>
+            <h4 id="modalSubtitle" style="color: var(--secondary); margin-bottom: 20px;">Sottotitolo</h4>
+            
+            <div style="margin-bottom: 15px;">
+                <strong><i class="fas fa-bullseye"></i> Obiettivo:</strong>
+                <p id="modalGoal">...</p>
+            </div>
+            <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid var(--secondary);">
+                <strong><i class="fas fa-cogs"></i> Azione Principale:</strong>
+                <p id="modalAction">...</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="lightbox" class="lightbox" onclick="this.style.display='none'">
+        <img id="lightboxImg" src="">
+    </div>
+
+    <script>
+        // DATI ESTRATTI E AGGIORNATI (Horizontal Clustering 2017 vs 2023)
+        const reportData = {
+            charts: {
+                lq: {
+                    // Dati LQ
+                    labels: ['Trasporto Aereo', 'Attività Estrattive', 'Riparazione Macchinari', 'Farmaceutica', 'Ing. Civile'],
+                    data2017: [43.2, 48.0, 24.7, 12.4, 3.5], 
+                    data2023: [25.5, 16.9, 7.8, 4.5, 3.7]    
+                },
+                shc: {
+                    // Horizontal Clustering - Dati dinamici per 2017 e 2023
+                    y2017: {
+                        labels: ['Costr. Edifici', 'Riparazione Macchinari', 'Attività Estrattive', 'Prod. Minerali', 'Ing. Civile'],
+                        data: [399, 97, 84, 49, 47]
+                    },
+                    y2023: {
+                        labels: ['Costr. Edifici', 'Lavori Costr. Spec.', 'Trasporto Terrestre', 'Farmaceutica', 'Altri Servizi'],
+                        data: [286, 270, 200, 165, 131]
+                    }
+                },
+                pillars: {
+                    // Evoluzione Addetti (Grafico a barre doppie)
+                    labels: ['Costr. Specializzate', 'Costr. Edifici', 'Sanità', 'Istruzione', 'Commercio', 'Trasporti'],
+                    data2017: [55, 442, 27, 71, 33, 9],
+                    data2023: [517, 419, 381, 352, 330, 330]
+                }
+            },
+            proposals: {
+                1: {
+                    title: "Riviera Tech-Craft Campus",
+                    sub: "Formazione Duale 4.0",
+                    goal: "Ridurre il gap di competenze per i cluster Farmaceutico ed Edilizio Specializzato.",
+                    action: "Trasformare la SPAI Biasca in un Centro di Competenza Inter-aziendale, con corsi co-progettati dalle imprese leader."
+                },
+                2: {
+                    title: "Digital Supply Chain Integration",
+                    sub: "Filiera Edilizia Integrata",
+                    goal: "Unire le micro-imprese del cluster Edilizia (Shc 286) tramite piattaforme digitali.",
+                    action: "Bando NPR per l'adozione di standard BIM condivisi, coordinati da un General Contractor locale."
+                },
+                3: {
+                    title: "Integrated Tourism Voucher",
+                    sub: "Innovazione Turistica",
+                    goal: "Integrare l'offerta frammentata aumentando la spesa media per visitatore.",
+                    action: "Voucher innovazione per creare pacchetti unici (Canyoning + Grotto + Hotel + Navetta) prenotabili digitalmente."
+                }
+            }
+        };
+
+        // INIZIALIZZAZIONE GRAFICI
+        let lqChart, shcChart, pillarsChart;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            
+            // Listener Toggle Anno
+            document.getElementById('yearToggle').addEventListener('change', function() {
+                updateCharts(this.checked); // checked = 2023
+            });
+        });
+
+        function initCharts() {
+            // 1. Chart LQ (Specializzazione)
+            const ctxLQ = document.getElementById('lqChart').getContext('2d');
+            lqChart = new Chart(ctxLQ, {
+                type: 'bar',
+                data: {
+                    labels: reportData.charts.lq.labels,
+                    datasets: [{
+                        label: 'Indice di Specializzazione (LQ)',
+                        data: reportData.charts.lq.data2017, // Iniziamo con 2017
+                        backgroundColor: 'rgba(44, 62, 80, 0.7)',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: function(context) { return context.raw + ' ( > 1 = Specializzato)'; } } }
+                    },
+                    scales: { x: { beginAtZero: true, title: {display: true, text: 'Indice LQ'} } }
+                }
+            });
+
+            // 2. Chart Horizontal Clustering (Shc) - DINAMICO
+            const ctxShc = document.getElementById('shcChart').getContext('2d');
+            shcChart = new Chart(ctxShc, {
+                type: 'bar',
+                data: {
+                    labels: reportData.charts.shc.y2017.labels, // Iniziamo con Labels 2017
+                    datasets: [{
+                        label: 'Intensità Clustering (Shc)',
+                        data: reportData.charts.shc.y2017.data, // Iniziamo con Dati 2017
+                        backgroundColor: '#3498db',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: function(context) { return 'Shc: ' + context.raw; } } }
+                    },
+                    scales: { x: { beginAtZero: true, title: {display: true, text: 'Valore Shc'} } }
+                }
+            });
+
+            // 3. Chart Pillars (Fisso, mostra entrambi gli anni)
+            const ctxPillars = document.getElementById('pillarsChart').getContext('2d');
+            pillarsChart = new Chart(ctxPillars, {
+                type: 'bar',
+                data: {
+                    labels: reportData.charts.pillars.labels,
+                    datasets: [
+                        { label: 'Addetti 2017', data: reportData.charts.pillars.data2017, backgroundColor: '#bdc3c7' },
+                        { label: 'Addetti 2023', data: reportData.charts.pillars.data2023, backgroundColor: '#2c3e50' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        title: { display: false },
+                        tooltip: { mode: 'index', intersect: false }
+                    }
+                }
+            });
+        }
+
+        function updateCharts(is2023) {
+            // A. Aggiorna LQ Chart
+            const newLQData = is2023 ? reportData.charts.lq.data2023 : reportData.charts.lq.data2017;
+            const newLQColor = is2023 ? '#c0392b' : 'rgba(44, 62, 80, 0.7)';
+            
+            lqChart.data.datasets[0].data = newLQData;
+            lqChart.data.datasets[0].backgroundColor = newLQColor;
+            lqChart.update();
+            
+            // B. Aggiorna Horizontal Clustering (Labels + Data cambiano!)
+            const shcTarget = is2023 ? reportData.charts.shc.y2023 : reportData.charts.shc.y2017;
+            const newShcColor = is2023 ? '#c0392b' : '#3498db';
+
+            shcChart.data.labels = shcTarget.labels;
+            shcChart.data.datasets[0].data = shcTarget.data;
+            shcChart.data.datasets[0].backgroundColor = newShcColor;
+            shcChart.update();
+        }
+
+        // FUNZIONI UI
+        function openModal(id) {
+            const data = reportData.proposals[id];
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalSubtitle').innerText = data.sub;
+            document.getElementById('modalGoal').innerText = data.goal;
+            document.getElementById('modalAction').innerText = data.action;
+            document.getElementById('infoModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+
+        function openLightbox(img) {
+            const lightbox = document.getElementById('lightbox');
+            const boxImg = document.getElementById('lightboxImg');
+            boxImg.src = img.src;
+            lightbox.style.display = 'flex';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('infoModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
