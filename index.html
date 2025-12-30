@@ -318,14 +318,12 @@
         }
 
         .badge-strong {
-            /* Navy Light Style */
             background-color: rgba(0, 76, 151, 0.1); 
             color: var(--str-color);
             border: 1px solid rgba(0, 76, 151, 0.3);
         }
 
         .badge-unique {
-             /* Accent Blue Style */
             background-color: rgba(0, 119, 200, 0.1);
             color: var(--opp-color);
             border: 1px solid rgba(0, 119, 200, 0.3);
@@ -429,7 +427,6 @@
         
         .video-grid {
             display: grid;
-            /* Modifica layout: colonna video più stretta per il verticale */
             grid-template-columns: 400px 1fr; 
             gap: 60px;
             align-items: center;
@@ -442,11 +439,10 @@
             overflow: hidden;
             box-shadow: 0 20px 50px rgba(5, 28, 44, 0.15);
             background: black;
-            /* Aspect Ratio Verticale (9:16) */
             aspect-ratio: 9/16; 
             width: 100%;
-            max-width: 350px; /* Larghezza tipo smartphone */
-            margin: 0 auto; /* Centrato nella sua colonna */
+            max-width: 350px; 
+            margin: 0 auto; 
         }
 
         video {
@@ -516,22 +512,96 @@
         }
         .read-more:hover { gap: 10px; color: var(--navy-light); }
 
-        /* TIMELINE */
-        .timeline { position: relative; max-width: 800px; margin: 0 auto; padding: 20px 0; }
-        .timeline::before {
-            content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: var(--border-light);
+        /* --- NEW ROADMAP MATRIX STYLES --- */
+        .roadmap-header {
+            display: grid;
+            grid-template-columns: 200px 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 0 20px;
         }
-        .tl-item { margin-bottom: 40px; position: relative; width: 50%; padding: 0 40px; box-sizing: border-box; }
-        .tl-item:nth-child(odd) { left: 0; text-align: right; }
-        .tl-item:nth-child(even) { left: 50%; text-align: left; }
-        .tl-dot {
-            position: absolute; top: 0; width: 12px; height: 12px; 
-            background: var(--navy-dark); border-radius: 50%; z-index: 2;
+        .rm-col-header {
+            text-align: center;
+            border-bottom: 2px solid var(--navy-dark);
+            padding-bottom: 10px;
         }
-        .tl-item:nth-child(odd) .tl-dot { right: -6px; }
-        .tl-item:nth-child(even) .tl-dot { left: -6px; }
-        .tl-content h4 { font-family: var(--font-sans); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; color: var(--navy-light); margin-bottom: 5px; }
-        .tl-content p { font-size: 1rem; color: var(--navy-dark); font-weight: 500; }
+        .rm-phase {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            letter-spacing: 1px;
+        }
+        .rm-time {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            color: var(--navy-dark);
+            font-weight: 600;
+        }
+
+        .roadmap-row {
+            display: grid;
+            grid-template-columns: 200px 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .roadmap-row:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+
+        .rm-row-label {
+            background: var(--navy-dark);
+            color: white;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .rm-row-label i { font-size: 1.5rem; margin-bottom: 10px; color: var(--accent-blue); }
+        .rm-row-label h4 { color: white; font-family: var(--font-sans); font-size: 1rem; margin-bottom: 5px; text-transform: uppercase; }
+        .rm-row-label span { font-size: 0.8rem; opacity: 0.8; font-style: italic; font-family: var(--font-serif); }
+
+        .rm-card {
+            padding: 25px 20px;
+            border-left: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+        .rm-card ul { list-style: none; padding: 0; }
+        .rm-card li { 
+            margin-bottom: 8px; 
+            position: relative; 
+            padding-left: 15px; 
+            color: #555;
+            line-height: 1.4;
+        }
+        .rm-card li::before {
+            content: "•"; position: absolute; left: 0; color: var(--accent-blue); font-weight: bold;
+        }
+        .mobile-label { display: none; font-weight: bold; color: var(--navy-dark); margin-bottom: 5px; text-transform: uppercase; font-size: 0.8rem; }
+
+        /* STRATEGIC SUMMARY TABLE */
+        .strategic-summary {
+            margin-top: 60px;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+        }
+        .strategic-summary h3 { font-size: 1.4rem; margin-bottom: 25px; color: var(--navy-dark); }
+        
+        .summary-table { width: 100%; border-collapse: collapse; font-family: var(--font-sans); }
+        .summary-table th { text-align: left; padding: 15px; border-bottom: 2px solid var(--navy-light); color: var(--navy-dark); font-size: 0.9rem; text-transform: uppercase; }
+        .summary-table td { padding: 15px; border-bottom: 1px solid #eee; color: #555; font-size: 0.95rem; }
+        .summary-table tr:last-child td { border-bottom: none; }
+        
+        .tag-long { background: var(--navy-dark); color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; }
+        .tag-mid { background: var(--navy-light); color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; }
+        .tag-short { background: var(--accent-blue); color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; }
 
         /* PARTNERS SECTION STYLES */
         .partners-section {
@@ -639,6 +709,14 @@
             .partners-grid { gap: 30px; }
             .video-grid { grid-template-columns: 1fr; }
             .video-wrapper { max-width: 300px; }
+            /* Responsive Roadmap */
+            .roadmap-header { display: none; }
+            .roadmap-row { grid-template-columns: 1fr; gap: 0; margin-bottom: 30px; }
+            .rm-row-label { flex-direction: row; justify-content: flex-start; gap: 15px; padding: 15px; text-align: left; }
+            .rm-row-label i { margin: 0; }
+            .rm-card { border-left: none; border-bottom: 1px solid #eee; padding: 20px; }
+            .mobile-label { display: block; }
+            .summary-table-wrapper { overflow-x: auto; }
         }
     </style>
 </head>
@@ -983,32 +1061,161 @@
         </div>
     </section>
 
-    <section id="timeline" class="section-padding">
+    <section id="timeline" class="section-padding" style="background: linear-gradient(to bottom, #ffffff, #f4f6f8);">
         <div class="container">
-            <div class="text-center" style="margin-bottom: 50px;"><h2>Implementation Roadmap</h2></div>
-            <div class="timeline">
-                <div class="tl-item">
-                    <div class="tl-dot"></div>
-                    <div class="tl-content">
-                        <h4>Phase 1: Setup & Governance</h4>
-                        <p>Istituzione tavoli tecnici SPAI/Aziende e Consorzi Edili.</p>
-                    </div>
+            <div class="text-center" style="margin-bottom: 60px;">
+                <h2>Strategic Implementation Roadmap</h2>
+                <p>Un percorso integrato per trasformare i pilastri strategici in realtà operativa.</p>
+            </div>
+
+            <div class="roadmap-header">
+                <div class="rm-col-empty"></div>
+                <div class="rm-col-header">
+                    <span class="rm-phase">PHASE 1</span>
+                    <span class="rm-time">Attivazione (0-6 Mesi)</span>
                 </div>
-                <div class="tl-item">
-                    <div class="tl-dot"></div>
-                    <div class="tl-content">
-                        <h4>Phase 2: Pilot & Launch</h4>
-                        <p>Lancio piattaforma turistica digitale. Avvio primi corsi pilota "Duale 4.0".</p>
-                    </div>
+                <div class="rm-col-header">
+                    <span class="rm-phase">PHASE 2</span>
+                    <span class="rm-time">Pilot & Launch (6-18 Mesi)</span>
                 </div>
-                <div class="tl-item">
-                    <div class="tl-dot"></div>
-                    <div class="tl-content">
-                        <h4>Phase 3: Scale & Consolidate</h4>
-                        <p>Estensione modello formativo (Reskilling). Integrazione completa trasporti.</p>
-                    </div>
+                <div class="rm-col-header">
+                    <span class="rm-phase">PHASE 3</span>
+                    <span class="rm-time">Scale (18-36 Mesi)</span>
                 </div>
             </div>
+
+            <div class="roadmap-row">
+                <div class="rm-row-label">
+                    <i class="fas fa-user-graduate"></i>
+                    <h4>Human Capital</h4>
+                    <span>Tech-Craft Campus</span>
+                </div>
+                <div class="rm-card phase-1">
+                    <span class="mobile-label">Fase 1 (0-6 Mesi)</span>
+                    <ul>
+                        <li>Accordo formale SPAI/Imprese</li>
+                        <li>Mappatura competenze 4.0</li>
+                        <li>Modello di Governance</li>
+                    </ul>
+                </div>
+                <div class="rm-card phase-2">
+                    <span class="mobile-label">Fase 2 (6-18 Mesi)</span>
+                    <ul>
+                        <li>Avvio percorsi duali pilota</li>
+                        <li>Laboratori avanzati attivi</li>
+                        <li>Reskilling adulti</li>
+                    </ul>
+                </div>
+                <div class="rm-card phase-3">
+                    <span class="mobile-label">Fase 3 (18-36 Mesi)</span>
+                    <ul>
+                        <li>Hub permanente stabilizzato</li>
+                        <li>Integrazione federale</li>
+                        <li>Estensione profili tecnici</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="roadmap-row">
+                <div class="rm-row-label">
+                    <i class="fas fa-network-wired"></i>
+                    <h4>Industry 4.0</h4>
+                    <span>Digital Supply Chain</span>
+                </div>
+                <div class="rm-card phase-1">
+                    <span class="mobile-label">Fase 1 (0-6 Mesi)</span>
+                    <ul>
+                        <li>Lancio Bando NPR</li>
+                        <li>Definizione standard BIM</li>
+                        <li>Identificazione capofila</li>
+                    </ul>
+                </div>
+                <div class="rm-card phase-2">
+                    <span class="mobile-label">Fase 2 (6-18 Mesi)</span>
+                    <ul>
+                        <li>Cantieri pilota BIM</li>
+                        <li>Piattaforme interoperabili</li>
+                        <li>Formazione "on the job"</li>
+                    </ul>
+                </div>
+                <div class="rm-card phase-3">
+                    <span class="mobile-label">Fase 3 (18-36 Mesi)</span>
+                    <ul>
+                        <li>Standardizzazione pratiche</li>
+                        <li>Integrazione appalti pubblici</li>
+                        <li>Filiera coordinata</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="roadmap-row">
+                <div class="rm-row-label">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h4>Tourism</h4>
+                    <span>Integrated Voucher</span>
+                </div>
+                <div class="rm-card phase-1">
+                    <span class="mobile-label">Fase 1 (0-6 Mesi)</span>
+                    <ul>
+                        <li>Regolamento Voucher</li>
+                        <li>Accordo Ufficio Sviluppo</li>
+                        <li>Rete operatori (Grotti/Guide)</li>
+                    </ul>
+                </div>
+                <div class="rm-card phase-2">
+                    <span class="mobile-label">Fase 2 (6-18 Mesi)</span>
+                    <ul>
+                        <li>Pacchetti Weekend attivi</li>
+                        <li>Piattaforma prenotazione</li>
+                        <li>Navette turistiche</li>
+                    </ul>
+                </div>
+                <div class="rm-card phase-3">
+                    <span class="mobile-label">Fase 3 (18-36 Mesi)</span>
+                    <ul>
+                        <li>Brand territoriale forte</li>
+                        <li>Replicabilità del modello</li>
+                        <li>Aumento permanenza media</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="strategic-summary">
+                <h3>Lettura Strategica Trasversale</h3>
+                <div class="summary-table-wrapper">
+                    <table class="summary-table">
+                        <thead>
+                            <tr>
+                                <th>Proposta</th>
+                                <th>Leva Principale</th>
+                                <th>Tipo Innovazione</th>
+                                <th>Impatto Temporale</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Tech-Craft Campus</strong></td>
+                                <td>Capitale Umano</td>
+                                <td>Strutturale</td>
+                                <td><span class="tag-long">Lungo Periodo</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Digital Supply Chain</strong></td>
+                                <td>Processi</td>
+                                <td>Organizzativa</td>
+                                <td><span class="tag-mid">Medio-Lungo</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tourism Voucher</strong></td>
+                                <td>Offerta & Domanda</td>
+                                <td>Incrementale</td>
+                                <td><span class="tag-short">Breve-Medio</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </section>
 
