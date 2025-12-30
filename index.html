@@ -98,6 +98,77 @@
         .btn-outline { background: transparent; border: 1px solid white; margin-left: 15px; }
         .btn-outline:hover { background: white; color: var(--navy-dark); }
 
+        /* CONTEXT SECTION STYLES (NEW) */
+        .context-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 60px; 
+            margin-top: 40px; 
+        }
+        .context-col { 
+            background: #fff; 
+            padding: 0; 
+        }
+        .context-header {
+            border-bottom: 2px solid var(--navy-light);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .context-header h3 { 
+            font-size: 1.8rem; 
+            margin: 0; 
+            color: var(--navy-dark);
+        }
+        .population-badge {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--grey-text);
+            background: #f0f0f0;
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+        .context-body p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .feature-list li:last-child { border-bottom: none; }
+        .feature-icon {
+            color: var(--navy-light);
+            font-size: 1.2rem;
+            margin-top: 3px;
+            min-width: 25px;
+        }
+        .feature-text strong {
+            display: block;
+            color: var(--navy-dark);
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .feature-text span {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
         /* TOGGLE */
         .controls-wrapper { display: flex; justify-content: center; margin-bottom: 50px; align-items: center; gap: 15px; font-family: var(--font-sans); }
         .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
@@ -292,6 +363,8 @@
             .hero h1 { font-size: 2.5rem; }
             .charts-grid { grid-template-columns: 1fr; }
             .gallery-strip { flex-direction: column; height: auto; }
+            /* Responsive Context */
+            .context-grid { grid-template-columns: 1fr; gap: 40px; }
         }
     </style>
 </head>
@@ -301,6 +374,7 @@
         <div class="container nav-container">
             <div class="logo">Gruppo 7 <span>Consulting</span></div>
             <ul class="nav-links">
+                <li><a href="#contesto">Contesto</a></li>
                 <li><a href="#analisi">Dati</a></li>
                 <li><a href="#swot">SWOT</a></li>
                 <li><a href="#proposte">Strategia</a></li>
@@ -317,6 +391,87 @@
             <div>
                 <a href="#analisi" class="btn">Visualizza Analisi</a>
                 <a href="#proposte" class="btn btn-outline">Leggi il Piano</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contesto" class="section-padding">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 60px;">
+                <h2>Profilo Territoriale</h2>
+                <p>Analisi comparativa del tessuto socio-economico e urbanistico.</p>
+            </div>
+
+            <div class="context-grid">
+                <div class="context-col">
+                    <div class="context-header">
+                        <h3>Riviera</h3>
+                        <span class="population-badge"><i class="fas fa-users"></i> 4.262 Ab.</span>
+                    </div>
+                    <div class="context-body">
+                        <p>
+                            Nato nel 2017 dalla fusione di Osogna, Lodrino, Iragna e Cresciano, Riviera si presenta come un territorio policentrico. Nonostante la fusione amministrativa, l'identità locale rimane frammentata, con nuclei che mantengono caratteristiche distinte.
+                        </p>
+                        <ul class="feature-list">
+                            <li>
+                                <div class="feature-icon"><i class="fas fa-industry"></i></div>
+                                <div class="feature-text">
+                                    <strong>Vocazione Produttiva</strong>
+                                    <span>Economia basata su estrazione del granito e agricoltura familiare. Forte specializzazione nell'aerospazio grazie allo Swiss Drone Competence Center.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="feature-icon"><i class="fas fa-city"></i></div>
+                                <div class="feature-text">
+                                    <strong>Urbanistica</strong>
+                                    <span>Combinazione di zone storiche e ampi spazi produttivi. Carenza di aree residenziali moderne e servizi commerciali nel centro.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="feature-icon"><i class="fas fa-bus"></i></div>
+                                <div class="feature-text">
+                                    <strong>Infrastrutture</strong>
+                                    <span>Assenza di ferrovia interna e trasporto pubblico limitato obbligano all'uso dell'auto per i servizi essenziali.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="context-col">
+                    <div class="context-header">
+                        <h3>Biasca</h3>
+                        <span class="population-badge"><i class="fas fa-users"></i> 6.136 Ab.</span>
+                    </div>
+                    <div class="context-body">
+                        <p>
+                            Situata all’incrocio strategico delle tre valli (Leventina, Blenio e Riviera), Biasca funge da nodo cruciale per trasporti e commerci. Il comune mostra un equilibrio tra tradizione storica e una progressiva modernizzazione infrastrutturale.
+                        </p>
+                        <ul class="feature-list">
+                            <li>
+                                <div class="feature-icon"><i class="fas fa-briefcase"></i></div>
+                                <div class="feature-text">
+                                    <strong>Tessuto Economico</strong>
+                                    <span>Economia diversificata con forte presenza di servizi (banche, studi medici) e retail. Zona industriale strategica con eccellenze come HAS Healthcare.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="feature-icon"><i class="fas fa-users"></i></div>
+                                <div class="feature-text">
+                                    <strong>Coesione Sociale</strong>
+                                    <span>Comunità coesa con alta socialità attiva grazie a piazze, eventi e grotti. Forte senso di appartenenza che trattiene i giovani residenti.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="feature-icon"><i class="fas fa-train"></i></div>
+                                <div class="feature-text">
+                                    <strong>Connettività</strong>
+                                    <span>Sistema di trasporti ben strutturato con stazione ferroviaria centrale e rete bus capillare verso le zone limitrofe.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
