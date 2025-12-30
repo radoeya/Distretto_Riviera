@@ -421,6 +421,70 @@
             margin: 0;
         }
 
+        /* --- VIDEO TESTIMONIAL SECTION (VERTICAL) --- */
+        .video-section {
+            background: white;
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .video-grid {
+            display: grid;
+            /* Modifica layout: colonna video più stretta per il verticale */
+            grid-template-columns: 400px 1fr; 
+            gap: 60px;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(5, 28, 44, 0.15);
+            background: black;
+            /* Aspect Ratio Verticale (9:16) */
+            aspect-ratio: 9/16; 
+            width: 100%;
+            max-width: 350px; /* Larghezza tipo smartphone */
+            margin: 0 auto; /* Centrato nella sua colonna */
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .video-content {
+            padding: 10px;
+        }
+
+        .video-quote {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-style: italic;
+            color: var(--navy-dark);
+            margin-bottom: 25px;
+            line-height: 1.3;
+            border-left: 4px solid var(--accent-blue);
+            padding-left: 25px;
+        }
+
+        .video-detail-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .video-detail-list i {
+            color: var(--navy-light);
+            margin-top: 4px;
+        }
+
         /* GALLERY */
         .gallery-strip { display: flex; gap: 2px; margin-top: 60px; overflow: hidden; height: 250px; }
         .gallery-strip img { 
@@ -565,7 +629,7 @@
         .lightbox { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
         .lightbox img { max-width: 90%; max-height: 90vh; border: 5px solid white; }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .nav-links { display: none; }
             .swot-grid { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2.5rem; }
@@ -573,6 +637,8 @@
             .gallery-strip { flex-direction: column; height: auto; }
             .context-grid { grid-template-columns: 1fr; gap: 40px; }
             .partners-grid { gap: 30px; }
+            .video-grid { grid-template-columns: 1fr; }
+            .video-wrapper { max-width: 300px; }
         }
     </style>
 </head>
@@ -847,6 +913,35 @@
             <img src="imm2.jpg" onclick="openLightbox(this)" onerror="this.src='https://via.placeholder.com/800x400?text=Industry'">
             <img src="cpt.jpg" onclick="openLightbox(this)" onerror="this.src='https://via.placeholder.com/800x400?text=Education'">
             <img src="imm4.jpg" onclick="openLightbox(this)" onerror="this.src='https://via.placeholder.com/800x400?text=River'">
+        </div>
+    </section>
+
+    <section id="intervista" class="section-padding video-section">
+        <div class="container">
+            <div class="text-center">
+                <h2>Voci dal Territorio</h2>
+                <p>Ascolto attivo: le sfide reali e le speranze dei residenti.</p>
+            </div>
+
+            <div class="video-grid">
+                <div class="video-wrapper">
+                    <video controls>
+                        <source src="Riviera_ Sfide e Speranze.mp4" type="video/mp4">
+                        Il tuo browser non supporta il tag video.
+                    </video>
+                </div>
+
+                <div class="video-content">
+                    <blockquote class="video-quote">
+                        "A 52 anni, dopo il licenziamento, reinserirsi nel mercato locale è diventato molto complesso."
+                    </blockquote>
+                    <ul class="video-detail-list" style="list-style: none; padding: 0;">
+                        <li><i class="fas fa-check-circle"></i> Difficoltà di ricollocamento over-50 nel settore edile.</li>
+                        <li><i class="fas fa-check-circle"></i> Carenza di servizi di base (alimentari, posta) nei piccoli nuclei.</li>
+                        <li><i class="fas fa-check-circle"></i> Asset naturali (Pozzone, Canyoning) come risorsa chiave.</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
 
