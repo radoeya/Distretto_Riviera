@@ -98,7 +98,7 @@
         .btn-outline { background: transparent; border: 1px solid white; margin-left: 15px; }
         .btn-outline:hover { background: white; color: var(--navy-dark); }
 
-        /* CONTEXT SECTION STYLES (NEW) */
+        /* CONTEXT SECTION STYLES */
         .context-grid { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
@@ -289,6 +289,39 @@
         .tl-content h4 { font-family: var(--font-sans); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; color: var(--navy-light); margin-bottom: 5px; }
         .tl-content p { font-size: 1rem; color: var(--navy-dark); font-weight: 500; }
 
+        /* --- PARTNERS SECTION STYLES (NUOVO) --- */
+        .partners-section {
+            background-color: var(--white);
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .partners-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 40px 60px; /* Spaziatura tra i loghi */
+            margin-top: 40px;
+        }
+
+        /* Stile Interattivo "McKinsey Style" */
+        .partner-logo {
+            height: 60px; /* Altezza uniforme per tutti i loghi */
+            width: auto;
+            max-width: 180px;
+            object-fit: contain;
+            filter: grayscale(100%); /* Bianco e nero di base */
+            opacity: 0.5; /* Leggera trasparenza */
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .partner-logo:hover {
+            filter: grayscale(0%); /* Colore al passaggio del mouse */
+            opacity: 1;
+            transform: scale(1.05); /* Leggero zoom */
+        }
+
         /* FOOTER */
         footer { background: var(--navy-dark); color: white; padding: 60px 0; text-align: center; }
         footer p { color: rgba(255,255,255,0.6); margin-bottom: 10px; }
@@ -363,8 +396,9 @@
             .hero h1 { font-size: 2.5rem; }
             .charts-grid { grid-template-columns: 1fr; }
             .gallery-strip { flex-direction: column; height: auto; }
-            /* Responsive Context */
             .context-grid { grid-template-columns: 1fr; gap: 40px; }
+            /* Responsive Partner Grid */
+            .partners-grid { gap: 30px; }
         }
     </style>
 </head>
@@ -660,6 +694,25 @@
                         <p>Estensione modello formativo (Reskilling). Integrazione completa trasporti.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="partners" class="section-padding partners-section">
+        <div class="container">
+            <div class="text-center">
+                <h2>Partner di Sviluppo</h2>
+                <p>Collaborazioni strategiche e istituzionali per la crescita del territorio.</p>
+            </div>
+            
+            <div class="partners-grid">
+                <img src="repubblica-e-cantone-ticino-.jpg" alt="Repubblica e Cantone Ticino" class="partner-logo">
+                <img src="ente regionale.jpg" alt="Ente Regionale per lo Sviluppo" class="partner-logo">
+                <img src="spai.jpg" alt="SPAI CPT Biasca" class="partner-logo">
+                <img src="supsi.jpg" alt="SUPSI" class="partner-logo">
+                <img src="SEFRI.jpg" alt="SEFRI" class="partner-logo">
+                <img src="tourismo.jpg" alt="Ticino Turismo" class="partner-logo">
+                <img src="impresari costruttori.jpg" alt="Società Svizzera Impresari Costruttori" class="partner-logo">
             </div>
         </div>
     </section>
