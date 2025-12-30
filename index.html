@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -24,11 +24,11 @@
             --font-serif: 'Playfair Display', serif;
             --font-sans: 'Inter', sans-serif;
             
-            /* SWOT Colors */
-            --swot-green: #90d393;
-            --swot-blue: #6baed6;
-            --swot-yellow: #fdbf6f;
-            --swot-purple: #bcbddc;
+            /* SWOT Colors - CORPORATE BLUE STYLE */
+            --str-color: #004c97;   /* Strengths: Navy Light */
+            --wk-color: #051c2c;    /* Weaknesses: Navy Dark */
+            --opp-color: #0077c8;   /* Opportunities: Accent Blue */
+            --thr-color: #546e7a;   /* Threats: Cool Grey */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -98,7 +98,7 @@
         .btn-outline { background: transparent; border: 1px solid white; margin-left: 15px; }
         .btn-outline:hover { background: white; color: var(--navy-dark); }
 
-        /* CONTEXT SECTION STYLES */
+        /* --- PROFILO TERRITORIALE (Versione senza cartina) --- */
         .context-grid { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
@@ -211,34 +211,214 @@
         }
         .btn-text-link:hover { color: var(--navy-dark); gap: 12px; }
 
-        /* SWOT MATRIX */
-        .swot-section { background: var(--white); }
+        /* --- STRATEGIC INSIGHT PANEL (SWOT) - BLUE CORPORATE STYLE --- */
+        .swot-section { background: #fafafa; }
+        
         .swot-grid {
-            display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto;
-            gap: 0; border: 1px solid var(--border-light); margin-top: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+            border: none;
         }
-        .swot-cell {
-            padding: 40px; border-right: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light); transition: background 0.3s;
+
+        .swot-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-top: 5px solid #ccc; /* Default */
         }
-        .swot-cell:nth-child(2n) { border-right: none; } 
-        .swot-cell:nth-last-child(-n+2) { border-bottom: none; }
-        .swot-cell:hover { background-color: #fafafa; }
-        .swot-header { 
-            font-size: 1.4rem; font-family: var(--font-serif); 
-            margin-bottom: 20px; display: flex; align-items: center; gap: 10px; 
+
+        .swot-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
-        .s-green { color: var(--swot-green); }
-        .s-red { color: #e57373; }
-        .s-yellow { color: var(--swot-yellow); }
-        .s-purple { color: var(--swot-purple); }
-        .swot-list { list-style: none; padding: 0; }
-        .swot-list li { 
-            margin-bottom: 10px; position: relative; padding-left: 15px; 
-            font-size: 0.95rem; color: var(--grey-text);
+
+        /* Colori Specifici per Card (Corporate Blue/Grey) */
+        .swot-card.strength { border-top-color: var(--str-color); }
+        .swot-card.weakness { border-top-color: var(--wk-color); }
+        .swot-card.opportunity { border-top-color: var(--opp-color); }
+        .swot-card.threat { border-top-color: var(--thr-color); }
+
+        .swot-header {
+            font-size: 1.3rem;
+            font-family: var(--font-serif);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
         }
+
+        /* Header Icons & Colors */
+        .swot-card.strength .swot-header { color: var(--str-color); }
+        .swot-card.weakness .swot-header { color: var(--wk-color); }
+        .swot-card.opportunity .swot-header { color: var(--opp-color); }
+        .swot-card.threat .swot-header { color: var(--thr-color); }
+
+        /* Icona di sfondo decorativa */
+        .card-bg-icon {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 120px;
+            opacity: 0.03;
+            z-index: 0;
+            pointer-events: none;
+            color: var(--navy-dark);
+        }
+
+        .swot-list { 
+            list-style: none; padding: 0; position: relative; z-index: 1; 
+        }
+        
+        .swot-list li {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.95rem;
+            color: #555;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
         .swot-list li::before {
-            content: "•"; position: absolute; left: 0; color: var(--navy-dark); font-weight: bold;
+            content: "•";
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Specific Bullet Colors */
+        .swot-card.strength li::before { color: var(--str-color); }
+        .swot-card.weakness li::before { color: var(--wk-color); }
+        .swot-card.opportunity li::before { color: var(--opp-color); }
+        .swot-card.threat li::before { color: var(--thr-color); }
+
+        /* BADGES (Evidenziatori - Corporate) */
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1;
+        }
+
+        .badge-strong {
+            /* Navy Light Style */
+            background-color: rgba(0, 76, 151, 0.1); 
+            color: var(--str-color);
+            border: 1px solid rgba(0, 76, 151, 0.3);
+        }
+
+        .badge-unique {
+             /* Accent Blue Style */
+            background-color: rgba(0, 119, 200, 0.1);
+            color: var(--opp-color);
+            border: 1px solid rgba(0, 119, 200, 0.3);
+        }
+
+        /* TOOLTIPS */
+        .info-tip {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #eee;
+            color: #888;
+            font-size: 0.7rem;
+            cursor: help;
+            position: relative;
+            margin-left: 5px;
+        }
+
+        .info-tip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--navy-dark);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            width: 200px;
+            text-align: center;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .info-tip:hover::before {
+            content: '';
+            position: absolute;
+            bottom: 70%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: var(--navy-dark);
+            z-index: 100;
+        }
+
+        /* STRATEGIC IMPLICATIONS BOX */
+        .strategic-implications {
+            background: var(--navy-dark);
+            color: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strategic-implications h3 {
+            color: white;
+            font-size: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .implications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .imp-item h4 {
+            color: var(--opp-color); /* Bright Accent Blue */
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .imp-item p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
         }
 
         /* GALLERY */
@@ -289,37 +469,33 @@
         .tl-content h4 { font-family: var(--font-sans); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; color: var(--navy-light); margin-bottom: 5px; }
         .tl-content p { font-size: 1rem; color: var(--navy-dark); font-weight: 500; }
 
-        /* --- PARTNERS SECTION STYLES (NUOVO) --- */
+        /* PARTNERS SECTION STYLES */
         .partners-section {
             background-color: var(--white);
             border-top: 1px solid var(--border-light);
         }
-        
         .partners-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 40px 60px; /* Spaziatura tra i loghi */
+            gap: 40px 60px;
             margin-top: 40px;
         }
-
-        /* Stile Interattivo "McKinsey Style" */
         .partner-logo {
-            height: 60px; /* Altezza uniforme per tutti i loghi */
+            height: 60px;
             width: auto;
             max-width: 180px;
             object-fit: contain;
-            filter: grayscale(100%); /* Bianco e nero di base */
-            opacity: 0.5; /* Leggera trasparenza */
+            filter: grayscale(100%);
+            opacity: 0.5;
             transition: all 0.4s ease;
             cursor: pointer;
         }
-
         .partner-logo:hover {
-            filter: grayscale(0%); /* Colore al passaggio del mouse */
+            filter: grayscale(0%);
             opacity: 1;
-            transform: scale(1.05); /* Leggero zoom */
+            transform: scale(1.05);
         }
 
         /* FOOTER */
@@ -338,7 +514,7 @@
         #modalTitle { font-family: var(--font-serif); font-size: 2rem; margin-bottom: 10px; color: var(--navy-dark); }
         #modalSubtitle { font-family: var(--font-sans); text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; color: var(--navy-light); font-weight: 700; display: block; margin-bottom: 20px; }
         
-        /* Report Content Styles within Modal */
+        /* Report Content Styles */
         .report-content h4 { 
             font-size: 1.2rem; color: var(--navy-dark); margin-top: 30px; margin-bottom: 15px; 
             border-left: 3px solid var(--navy-light); padding-left: 15px; font-family: var(--font-serif); font-weight: 700;
@@ -392,12 +568,10 @@
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .swot-grid { grid-template-columns: 1fr; }
-            .swot-cell { border-right: none; border-bottom: 1px solid var(--border-light); }
             .hero h1 { font-size: 2.5rem; }
             .charts-grid { grid-template-columns: 1fr; }
             .gallery-strip { flex-direction: column; height: auto; }
             .context-grid { grid-template-columns: 1fr; gap: 40px; }
-            /* Responsive Partner Grid */
             .partners-grid { gap: 30px; }
         }
     </style>
@@ -575,54 +749,99 @@
         </div>
     </section>
 
-    <section id="swot" class="section-padding">
+    <section id="swot" class="section-padding swot-section">
         <div class="container">
             <div class="text-center" style="margin-bottom: 50px;">
-                <h2>Analisi Strategica (SWOT)</h2>
-                <p>Mappatura dei fattori competitivi interni ed esterni.</p>
+                <h2>Strategic Insight Panel</h2>
+                <p>Mappatura competitiva e implicazioni dirette per lo sviluppo.</p>
             </div>
 
             <div class="swot-grid">
-                <div class="swot-cell">
-                    <div class="swot-header s-green"><i class="fas fa-check-circle"></i> <h3>Strengths</h3></div>
+                <div class="swot-card strength">
+                    <i class="fas fa-chart-line card-bg-icon"></i>
+                    <div class="swot-header"><i class="fas fa-check-circle"></i> <h3>Strengths</h3></div>
                     <ul class="swot-list">
-                        <li>Cave di <strong>granito</strong> (LQ 16.9)</li>
-                        <li><strong>Swiss Drone Competence Center</strong> (LQ 25.5)</li>
-                        <li>Attività di <strong>Canyoning</strong> di livello europeo</li>
-                        <li>Azienda <strong>farmaceutica</strong> HAS (LQ 4.5)</li>
-                        <li>Infrastrutture sportive moderne e complete</li>
+                        <li>
+                            Cave di <strong>granito</strong>
+                            <span class="badge badge-strong">LQ 16.9</span>
+                            <span class="info-tip" data-tooltip="Alta concentrazione storica, base export solida ma tradizionale.">i</span>
+                        </li>
+                        <li>
+                            <strong>Swiss Drone Center</strong>
+                            <span class="badge badge-strong">LQ 25.5</span>
+                            <span class="badge badge-unique">Unique</span>
+                            <span class="info-tip" data-tooltip="Asset tecnologico non replicabile, magnete per talenti e startup.">i</span>
+                        </li>
+                        <li>Attività di <strong>Canyoning</strong>
+                            <span class="badge badge-unique">Top EU</span>
+                        </li>
+                        <li>Azienda <strong>farmaceutica</strong> HAS <span class="badge badge-strong">LQ 4.5</span></li>
+                        <li>Infrastrutture sportive moderne</li>
                     </ul>
                 </div>
-                <div class="swot-cell">
-                    <div class="swot-header s-red"><i class="fas fa-exclamation-circle"></i> <h3>Weaknesses</h3></div>
+
+                <div class="swot-card weakness">
+                    <i class="fas fa-exclamation-triangle card-bg-icon"></i>
+                    <div class="swot-header"><i class="fas fa-exclamation-circle"></i> <h3>Weaknesses</h3></div>
                     <ul class="swot-list">
-                        <li><strong>Trasporti pubblici</strong> locali insufficienti</li>
-                        <li>Mancanza di Piano Regolatore per le cave</li>
-                        <li>Assenza di formazione terziaria in loco</li>
+                        <li><strong>Trasporti pubblici</strong> locali insufficienti
+                            <span class="info-tip" data-tooltip="Ostacolo principale per il turismo diffuso e la mobilità dei lavoratori.">i</span>
+                        </li>
+                        <li>Mancanza di Piano Regolatore cave</li>
+                        <li>Assenza formazione terziaria in loco
+                            <span class="info-tip" data-tooltip="Causa la fuga di cervelli verso centri urbani maggiori.">i</span>
+                        </li>
                         <li>Offerta limitata per i <strong>giovani</strong></li>
-                        <li>Zona industriale di Biasca sottoutilizzata</li>
+                        <li>Zona industriale Biasca sottoutilizzata</li>
                     </ul>
                 </div>
-                <div class="swot-cell">
-                    <div class="swot-header s-yellow"><i class="fas fa-lightbulb"></i> <h3>Opportunities</h3></div>
+
+                <div class="swot-card opportunity">
+                    <i class="fas fa-lightbulb card-bg-icon"></i>
+                    <div class="swot-header"><i class="fas fa-lightbulb"></i> <h3>Opportunities</h3></div>
                     <ul class="swot-list">
-                        <li>Sviluppo di pacchetti <strong>Turismo Integrato</strong></li>
-                        <li>Rilancio zona industriale con focus Tech/Pharma</li>
+                        <li>Sviluppo pacchetti <strong>Turismo Integrato</strong>
+                            <span class="info-tip" data-tooltip="Unire canyoning + grotti + hotel aumenta la spesa media per visitatore.">i</span>
+                        </li>
+                        <li>Rilancio zona industriale (Tech/Pharma)</li>
                         <li>Valorizzazione turistica delle cave</li>
                         <li>Potenziamento navette e mobilità sostenibile</li>
                     </ul>
                 </div>
-                <div class="swot-cell">
-                    <div class="swot-header s-purple"><i class="fas fa-shield-alt"></i> <h3>Threats</h3></div>
+
+                <div class="swot-card threat">
+                    <i class="fas fa-shield-alt card-bg-icon"></i>
+                    <div class="swot-header"><i class="fas fa-shield-alt"></i> <h3>Threats</h3></div>
                     <ul class="swot-list">
-                        <li><strong>Concorrenza internazionale</strong> materiali lapidei</li>
-                        <li>Perdita di attrattività residenziale per giovani</li>
+                        <li><strong>Concorrenza internazionale</strong> lapidei
+                            <span class="info-tip" data-tooltip="Pressione sui prezzi da mercati esteri a basso costo.">i</span>
+                        </li>
+                        <li>Perdita attrattività residenziale giovani</li>
                         <li>Rischi sicurezza legati al canyoning</li>
-                        <li>Dipendenza da poche grandi aziende trainanti</li>
+                        <li>Dipendenza da poche grandi aziende</li>
                     </ul>
                 </div>
             </div>
+
+            <div class="strategic-implications">
+                <h3><i class="fas fa-chess"></i> Key Strategic Insights</h3>
+                <div class="implications-grid">
+                    <div class="imp-item">
+                        <h4>Proteggere le Eccellenze</h4>
+                        <p>La Riviera presenta iper-specializzazioni industriali (granito, droni) che costituiscono vantaggi competitivi rari. Vanno scalate tramite cluster dedicati.</p>
+                    </div>
+                    <div class="imp-item">
+                        <h4>Colmare il Gap Formativo</h4>
+                        <p>L'assenza di formazione terziaria è il principale collo di bottiglia. La creazione di un hub formativo (es. Campus) è prioritaria per trattenere valore.</p>
+                    </div>
+                    <div class="imp-item">
+                        <h4>Sbloccare il Valore Latente</h4>
+                        <p>Il turismo esperienziale (canyoning + cave) è sottoutilizzato. L'integrazione digitale dell'offerta può trasformare visite brevi in soggiorni ad alto valore.</p>
+                    </div>
+                </div>
+            </div>
         </div>
+        
         <div class="gallery-strip">
             <img src="imma1.jpg" onclick="openLightbox(this)" onerror="this.src='https://via.placeholder.com/800x400?text=Nature'">
             <img src="imm2.jpg" onclick="openLightbox(this)" onerror="this.src='https://via.placeholder.com/800x400?text=Industry'">
