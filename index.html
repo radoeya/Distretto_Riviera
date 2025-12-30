@@ -7,26 +7,31 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
-            /* McKinsey-inspired Palette */
-            --navy-dark: #051c2c;      /* Blu scurissimo */
-            --navy-light: #004c97;     /* Blu istituzionale */
-            --accent-blue: #0077c8;    /* Blu brillante */
-            --grey-bg: #f5f5f5;        /* Sfondo grigio */
-            --grey-text: #555555;      /* Testo secondario */
+            /* Palette Corporate */
+            --navy-dark: #051c2c;      
+            --navy-light: #004c97;     
+            --accent-blue: #0077c8;    
+            --grey-bg: #f5f5f5;        
+            --grey-text: #444444;      
             --white: #ffffff;
             --border-light: #e0e0e0;
             --font-serif: 'Playfair Display', serif;
             --font-sans: 'Inter', sans-serif;
+            
+            /* SWOT Colors */
+            --swot-green: #90d393;
+            --swot-blue: #6baed6;
+            --swot-yellow: #fdbf6f;
+            --swot-purple: #bcbddc;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
         
         body { 
             font-family: var(--font-sans); 
@@ -57,10 +62,8 @@
         /* NAV */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: var(--white); 
-            border-bottom: 1px solid var(--border-light);
-            padding: 20px 0;
-            transition: all 0.3s ease;
+            background: var(--white); border-bottom: 1px solid var(--border-light);
+            padding: 20px 0; transition: all 0.3s ease;
         }
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: var(--font-sans); font-weight: 700; font-size: 1.1rem; letter-spacing: 1px; text-transform: uppercase; color: var(--navy-dark); }
@@ -87,8 +90,7 @@
         .hero p { color: rgba(255,255,255,0.9); font-size: 1.3rem; margin-bottom: 40px; font-family: var(--font-serif); font-style: italic;}
         
         .btn {
-            display: inline-block; padding: 14px 35px; 
-            background: var(--navy-light); color: white;
+            display: inline-block; padding: 14px 35px; background: var(--navy-light); color: white;
             font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
             text-decoration: none; transition: background 0.3s; border: none; cursor: pointer;
         }
@@ -96,7 +98,7 @@
         .btn-outline { background: transparent; border: 1px solid white; margin-left: 15px; }
         .btn-outline:hover { background: white; color: var(--navy-dark); }
 
-        /* CONTROLS */
+        /* TOGGLE */
         .controls-wrapper { display: flex; justify-content: center; margin-bottom: 50px; align-items: center; gap: 15px; font-family: var(--font-sans); }
         .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
         .switch input { opacity: 0; width: 0; height: 0; }
@@ -106,21 +108,39 @@
         input:checked + .slider:before { transform: translateX(24px); }
         .switch-label { font-weight: 600; font-size: 0.9rem; color: var(--navy-dark); text-transform: uppercase; }
 
-        /* CHARTS */
+        /* CHARTS GRID & BOXES */
         .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); gap: 40px; margin-bottom: 40px; }
         .chart-box { 
             background: white; padding: 0; 
             border-bottom: 1px solid var(--border-light); 
-            height: 450px; display: flex; flex-direction: column;
+            height: 550px; 
+            display: flex; flex-direction: column;
         }
-        .chart-full { grid-column: 1 / -1; height: 500px; }
+        .chart-full { grid-column: 1 / -1; height: 600px; }
+        .chart-content { padding: 25px 25px 0 25px; flex-grow: 1; display: flex; flex-direction: column; }
         h3.chart-title { 
-            font-size: 1.2rem; margin-bottom: 10px; color: var(--navy-dark); 
+            font-size: 1.2rem; margin-bottom: 5px; color: var(--navy-dark); 
             font-family: var(--font-sans); text-transform: uppercase; letter-spacing: 0.5px;
         }
-        .chart-caption { font-size: 0.85rem; color: #888; margin-top: 10px; font-style: italic; }
+        .chart-caption { font-size: 0.85rem; color: #888; margin-bottom: 15px; font-style: italic; }
+        
+        /* CHART FOOTER */
+        .chart-footer {
+            padding: 15px 25px;
+            border-top: 1px solid #f0f0f0;
+            text-align: right;
+            background-color: #fafafa;
+        }
+        .btn-text-link {
+            background: none; border: none; cursor: pointer;
+            color: var(--navy-light); font-weight: 700; font-size: 0.85rem;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            display: inline-flex; align-items: center; gap: 8px;
+            transition: gap 0.2s;
+        }
+        .btn-text-link:hover { color: var(--navy-dark); gap: 12px; }
 
-        /* SWOT */
+        /* SWOT MATRIX */
         .swot-section { background: var(--white); }
         .swot-grid {
             display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto;
@@ -137,10 +157,10 @@
             font-size: 1.4rem; font-family: var(--font-serif); 
             margin-bottom: 20px; display: flex; align-items: center; gap: 10px; 
         }
-        .s-green { color: #27ae60; }
-        .s-red { color: #c0392b; }
-        .s-yellow { color: #f39c12; }
-        .s-purple { color: #8e44ad; }
+        .s-green { color: var(--swot-green); }
+        .s-red { color: #e57373; }
+        .s-yellow { color: var(--swot-yellow); }
+        .s-purple { color: var(--swot-purple); }
         .swot-list { list-style: none; padding: 0; }
         .swot-list li { 
             margin-bottom: 10px; position: relative; padding-left: 15px; 
@@ -151,12 +171,9 @@
         }
 
         /* GALLERY */
-        .gallery-strip { 
-            display: flex; gap: 2px; margin-top: 60px; overflow: hidden; height: 250px; 
-        }
+        .gallery-strip { display: flex; gap: 2px; margin-top: 60px; overflow: hidden; height: 250px; }
         .gallery-strip img { 
-            flex: 1; object-fit: cover; opacity: 0.9; transition: all 0.5s; cursor: zoom-in; 
-            filter: grayscale(20%);
+            flex: 1; object-fit: cover; opacity: 0.9; transition: all 0.5s; cursor: zoom-in; filter: grayscale(20%);
         }
         .gallery-strip img:hover { flex: 2; opacity: 1; filter: grayscale(0%); }
 
@@ -187,8 +204,7 @@
         /* TIMELINE */
         .timeline { position: relative; max-width: 800px; margin: 0 auto; padding: 20px 0; }
         .timeline::before {
-            content: ''; position: absolute; top: 0; bottom: 0; left: 50%; 
-            width: 1px; background: var(--border-light);
+            content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: var(--border-light);
         }
         .tl-item { margin-bottom: 40px; position: relative; width: 50%; padding: 0 40px; box-sizing: border-box; }
         .tl-item:nth-child(odd) { left: 0; text-align: right; }
@@ -209,13 +225,61 @@
         /* MODAL */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(5, 28, 44, 0.9); backdrop-filter: blur(5px); overflow-y: auto; }
         .modal-content { 
-            background-color: #fff; margin: 5% auto; padding: 60px; width: 90%; max-width: 800px; 
+            background-color: #fff; margin: 5% auto; padding: 60px; width: 90%; max-width: 850px; 
             box-shadow: 0 20px 50px rgba(0,0,0,0.3); position: relative; 
         }
         .close { position: absolute; top: 20px; right: 30px; font-size: 40px; cursor: pointer; color: var(--navy-dark); }
-        .modal-section { margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
-        .modal-section:last-child { border: none; }
-        .modal-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 5px; display: block; }
+        
+        /* Modal Typography */
+        #modalTitle { font-family: var(--font-serif); font-size: 2rem; margin-bottom: 10px; color: var(--navy-dark); }
+        #modalSubtitle { font-family: var(--font-sans); text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; color: var(--navy-light); font-weight: 700; display: block; margin-bottom: 20px; }
+        
+        /* Report Content Styles within Modal */
+        .report-content h4 { 
+            font-size: 1.2rem; color: var(--navy-dark); margin-top: 30px; margin-bottom: 15px; 
+            border-left: 3px solid var(--navy-light); padding-left: 15px; font-family: var(--font-serif); font-weight: 700;
+        }
+        .report-content p { font-size: 1rem; color: #444; line-height: 1.7; margin-bottom: 15px; font-weight: 400; }
+        .report-content ul { list-style: none; padding-left: 0; margin-bottom: 20px; }
+        .report-content li { position: relative; padding-left: 20px; margin-bottom: 8px; color: #555; }
+        .report-content li::before { content: "•"; position: absolute; left: 0; color: var(--navy-light); font-weight: bold; }
+        
+        /* CLICKABLE INFOGRAPHIC IN MODAL */
+        .proposal-img-container {
+            position: relative;
+            cursor: zoom-in;
+            margin-bottom: 30px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+        }
+        .proposal-img-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        .proposal-img-container:hover img {
+            transform: scale(1.02);
+        }
+        .img-overlay-hint {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(5, 28, 44, 0.8);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .proposal-img-container:hover .img-overlay-hint {
+            opacity: 1;
+        }
 
         /* LIGHTBOX */
         .lightbox { display: none; position: fixed; z-index: 3000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
@@ -227,10 +291,6 @@
             .swot-cell { border-right: none; border-bottom: 1px solid var(--border-light); }
             .hero h1 { font-size: 2.5rem; }
             .charts-grid { grid-template-columns: 1fr; }
-            .timeline::before { left: 20px; }
-            .tl-item { width: 100%; padding-left: 50px; text-align: left; left: 0; }
-            .tl-item:nth-child(odd) { text-align: left; }
-            .tl-item:nth-child(odd) .tl-dot, .tl-item:nth-child(even) .tl-dot { left: 14px; }
             .gallery-strip { flex-direction: column; height: auto; }
         }
     </style>
@@ -242,7 +302,7 @@
             <div class="logo">Gruppo 7 <span>Consulting</span></div>
             <ul class="nav-links">
                 <li><a href="#analisi">Dati</a></li>
-                <li><a href="#swot">Analisi SWOT</a></li>
+                <li><a href="#swot">SWOT</a></li>
                 <li><a href="#proposte">Strategia</a></li>
                 <li><a href="#timeline">Roadmap</a></li>
             </ul>
@@ -279,32 +339,47 @@
 
             <div class="charts-grid">
                 <div class="chart-box">
-                    <div style="padding: 25px;">
+                    <div class="chart-content">
                         <h3 class="chart-title">Indice di Specializzazione (LQ)</h3>
                         <p class="chart-caption">Concentrazione settoriale rispetto alla media nazionale (>1 = specializzato).</p>
+                        <div style="flex-grow: 1; position: relative;">
+                            <canvas id="lqChart"></canvas>
+                        </div>
                     </div>
-                    <div style="flex-grow: 1; padding: 0 20px 20px 20px;">
-                        <canvas id="lqChart"></canvas>
+                    <div class="chart-footer">
+                        <button class="btn-text-link" onclick="openReportModal('lq')">
+                            Read Full Report <i class="fas fa-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
                 
                 <div class="chart-box">
-                    <div style="padding: 25px;">
+                    <div class="chart-content">
                         <h3 class="chart-title">Horizontal Clustering (Shc)</h3>
                         <p class="chart-caption">Intensità della presenza industriale locale (valori assoluti).</p>
+                        <div style="flex-grow: 1; position: relative;">
+                            <canvas id="shcChart"></canvas>
+                        </div>
                     </div>
-                    <div style="flex-grow: 1; padding: 0 20px 20px 20px;">
-                        <canvas id="shcChart"></canvas>
+                    <div class="chart-footer">
+                        <button class="btn-text-link" onclick="openReportModal('shc')">
+                            Read Full Report <i class="fas fa-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
 
                 <div class="chart-box chart-full">
-                    <div style="padding: 25px;">
+                    <div class="chart-content">
                         <h3 class="chart-title">Nuovi Pilastri Economici</h3>
                         <p class="chart-caption">Numero di addetti per settore chiave: confronto diretto.</p>
+                        <div style="flex-grow: 1; position: relative;">
+                            <canvas id="pillarsChart"></canvas>
+                        </div>
                     </div>
-                    <div style="flex-grow: 1; padding: 0 20px 20px 20px;">
-                        <canvas id="pillarsChart"></canvas>
+                    <div class="chart-footer">
+                        <button class="btn-text-link" onclick="openReportModal('pillars')">
+                            Read Full Report <i class="fas fa-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -320,65 +395,50 @@
 
             <div class="swot-grid">
                 <div class="swot-cell">
-                    <div class="swot-header s-green">
-                        <i class="fas fa-check-circle"></i> <h3>Strengths</h3>
-                    </div>
+                    <div class="swot-header s-green"><i class="fas fa-check-circle"></i> <h3>Strengths</h3></div>
                     <ul class="swot-list">
-                        <li>Cave di <strong>granito</strong> (LQ 16.9) e know-how estrattivo</li>
+                        <li>Cave di <strong>granito</strong> (LQ 16.9)</li>
                         <li><strong>Swiss Drone Competence Center</strong> (LQ 25.5)</li>
                         <li>Attività di <strong>Canyoning</strong> di livello europeo</li>
-                        <li>Cluster <strong>Farmaceutico</strong> (Helsinn) consolidato</li>
-                        <li>Paesaggio naturale e comparto culturale distintivo</li>
+                        <li>Azienda <strong>farmaceutica</strong> HAS (LQ 4.5)</li>
                         <li>Infrastrutture sportive moderne e complete</li>
                     </ul>
                 </div>
-
                 <div class="swot-cell">
-                    <div class="swot-header s-red">
-                        <i class="fas fa-exclamation-circle"></i> <h3>Weaknesses</h3>
-                    </div>
+                    <div class="swot-header s-red"><i class="fas fa-exclamation-circle"></i> <h3>Weaknesses</h3></div>
                     <ul class="swot-list">
-                        <li><strong>Trasporti pubblici</strong> locali insufficienti (connettività interna)</li>
-                        <li>Mancanza di Piano Regolatore specifico per le cave</li>
-                        <li>Assenza di formazione terziaria in loco (Licei/Scuole Prof.)</li>
-                        <li>Offerta limitata per la fascia <strong>giovani</strong></li>
-                        <li>Zona industriale di Biasca parzialmente sottoutilizzata</li>
-                        <li>Promozione turistica frammentata</li>
+                        <li><strong>Trasporti pubblici</strong> locali insufficienti</li>
+                        <li>Mancanza di Piano Regolatore per le cave</li>
+                        <li>Assenza di formazione terziaria in loco</li>
+                        <li>Offerta limitata per i <strong>giovani</strong></li>
+                        <li>Zona industriale di Biasca sottoutilizzata</li>
                     </ul>
                 </div>
-
-                <div class="swot-card swot-cell">
-                    <div class="swot-header s-yellow">
-                        <i class="fas fa-lightbulb"></i> <h3>Opportunities</h3>
-                    </div>
+                <div class="swot-cell">
+                    <div class="swot-header s-yellow"><i class="fas fa-lightbulb"></i> <h3>Opportunities</h3></div>
                     <ul class="swot-list">
-                        <li>Sviluppo di pacchetti <strong>Turismo Integrato</strong> (Sport + Grotto)</li>
+                        <li>Sviluppo di pacchetti <strong>Turismo Integrato</strong></li>
                         <li>Rilancio zona industriale con focus Tech/Pharma</li>
-                        <li>Valorizzazione turistica delle cave (Industrial Heritage)</li>
+                        <li>Valorizzazione turistica delle cave</li>
                         <li>Potenziamento navette e mobilità sostenibile</li>
-                        <li>Nuovi progetti infrastrutturali a Biasca (es. Casa Anziani)</li>
                     </ul>
                 </div>
-
-                <div class="swot-card swot-cell">
-                    <div class="swot-header s-purple">
-                        <i class="fas fa-shield-alt"></i> <h3>Threats</h3>
-                    </div>
+                <div class="swot-cell">
+                    <div class="swot-header s-purple"><i class="fas fa-shield-alt"></i> <h3>Threats</h3></div>
                     <ul class="swot-list">
-                        <li><strong>Concorrenza internazionale</strong> sui materiali lapidei (granito estero)</li>
-                        <li>Perdita di attrattività residenziale per giovani famiglie</li>
-                        <li>Rischi sicurezza legati alle attività outdoor (Canyoning)</li>
-                        <li>Eccessiva dipendenza da poche grandi aziende trainanti</li>
+                        <li><strong>Concorrenza internazionale</strong> materiali lapidei</li>
+                        <li>Perdita di attrattività residenziale per giovani</li>
+                        <li>Rischi sicurezza legati al canyoning</li>
+                        <li>Dipendenza da poche grandi aziende trainanti</li>
                     </ul>
                 </div>
             </div>
         </div>
-
         <div class="gallery-strip">
-            <img src="imma1.jpg" onclick="openLightbox(this)" onerror="this.src='https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=800&q=80'">
-            <img src="imm2.jpg" onclick="openLightbox(this)" onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80'">
-            <img src="cpt.jpg" onclick="openLightbox(this)" onerror="this.src='https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80'">
-            <img src="imm4.jpg" onclick="openLightbox(this)" onerror="this.src='https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80'">
+            <img src="imma1.jpg" onclick="openLightbox(this)" onerror="this.src='https://via.placeholder.com/800x400?text=Nature'">
+            <img src="imm2.jpg" onclick="openLightbox(this)" onerror="this.src='https://via.placeholder.com/800x400?text=Industry'">
+            <img src="cpt.jpg" onclick="openLightbox(this)" onerror="this.src='https://via.placeholder.com/800x400?text=Education'">
+            <img src="imm4.jpg" onclick="openLightbox(this)" onerror="this.src='https://via.placeholder.com/800x400?text=River'">
         </div>
     </section>
 
@@ -388,41 +448,32 @@
                 <h2>Strategic Pillars</h2>
                 <p>Tre direttrici di sviluppo per colmare i gap e valorizzare gli asset.</p>
             </div>
-
             <div class="cards-grid">
                 <div class="card">
-                    <div class="card-img">
-                        <img src="cpt.jpg" onerror="this.src='https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80'">
-                    </div>
+                    <div class="card-img"><img src="cpt.jpg" onerror="this.style.background='#eee'"></div>
                     <div class="card-body">
                         <span class="card-category">Human Capital</span>
                         <h3>Riviera Tech-Craft Campus</h3>
                         <p class="card-excerpt">Creazione di un hub di competenza inter-aziendale presso la SPAI Biasca per ridurre il mismatch di competenze nel settore Pharma e Droni.</p>
-                        <button class="read-more" onclick="openModal(1)">Read Full Report <i class="fas fa-arrow-right"></i></button>
+                        <button class="btn-text-link" onclick="openProposalModal(1)">Read Full Report <i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
-
                 <div class="card">
-                    <div class="card-img">
-                        <img src="imm2.jpg" onerror="this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80'">
-                    </div>
+                    <div class="card-img"><img src="imm2.jpg" onerror="this.style.background='#eee'"></div>
                     <div class="card-body">
                         <span class="card-category">Industry 4.0</span>
                         <h3>Digital Supply Chain</h3>
                         <p class="card-excerpt">Piattaforma BIM integrata per unire le micro-imprese edili locali in una filiera digitale competitiva sui grandi appalti.</p>
-                        <button class="read-more" onclick="openModal(2)">Read Full Report <i class="fas fa-arrow-right"></i></button>
+                        <button class="btn-text-link" onclick="openProposalModal(2)">Read Full Report <i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
-
                 <div class="card">
-                    <div class="card-img">
-                        <img src="imm4.jpg" onerror="this.src='https://images.unsplash.com/photo-1533552279-7988849b2c3c?auto=format&fit=crop&w=800&q=80'">
-                    </div>
+                    <div class="card-img"><img src="imm4.jpg" onerror="this.style.background='#eee'"></div>
                     <div class="card-body">
                         <span class="card-category">Experience Economy</span>
                         <h3>Integrated Tourism Voucher</h3>
                         <p class="card-excerpt">Sistema unificato di prenotazione e mobilità che connette canyoning, ristorazione nei grotti e pernottamento.</p>
-                        <button class="read-more" onclick="openModal(3)">Read Full Report <i class="fas fa-arrow-right"></i></button>
+                        <button class="btn-text-link" onclick="openProposalModal(3)">Read Full Report <i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
             </div>
@@ -431,29 +482,27 @@
 
     <section id="timeline" class="section-padding">
         <div class="container">
-            <div class="text-center" style="margin-bottom: 50px;">
-                <h2>Implementation Roadmap</h2>
-            </div>
+            <div class="text-center" style="margin-bottom: 50px;"><h2>Implementation Roadmap</h2></div>
             <div class="timeline">
                 <div class="tl-item">
                     <div class="tl-dot"></div>
                     <div class="tl-content">
                         <h4>Phase 1: Setup & Governance</h4>
-                        <p>Istituzione tavoli tecnici SPAI/Aziende e Consorzi Edili. Definizione standard BIM.</p>
+                        <p>Istituzione tavoli tecnici SPAI/Aziende e Consorzi Edili.</p>
                     </div>
                 </div>
                 <div class="tl-item">
                     <div class="tl-dot"></div>
                     <div class="tl-content">
                         <h4>Phase 2: Pilot & Launch</h4>
-                        <p>Lancio piattaforma turistica digitale. Avvio primi corsi pilota "Duale 4.0". Primo cantiere digitale.</p>
+                        <p>Lancio piattaforma turistica digitale. Avvio primi corsi pilota "Duale 4.0".</p>
                     </div>
                 </div>
                 <div class="tl-item">
                     <div class="tl-dot"></div>
                     <div class="tl-content">
                         <h4>Phase 3: Scale & Consolidate</h4>
-                        <p>Estensione modello formativo (Reskilling). Integrazione completa trasporti nel pacchetto turistico.</p>
+                        <p>Estensione modello formativo (Reskilling). Integrazione completa trasporti.</p>
                     </div>
                 </div>
             </div>
@@ -473,25 +522,9 @@
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <div style="margin-bottom: 30px;">
-                <span id="modalSubtitle" style="color: var(--navy-light); font-weight:700; text-transform:uppercase; font-size:0.8rem;">Category</span>
-                <h2 id="modalTitle" style="margin-top: 10px;">Title</h2>
-            </div>
-            
-            <div class="modal-section">
-                <span class="modal-label">The Challenge</span>
-                <p id="modalContext" style="font-size:1.1rem; color:#333;">...</p>
-            </div>
-            
-            <div class="modal-section">
-                <span class="modal-label">Strategic Objective</span>
-                <p id="modalGoal">...</p>
-            </div>
-            
-            <div class="modal-section" style="background: #f9f9f9; padding: 20px; border-left: 4px solid var(--navy-light);">
-                <span class="modal-label" style="color: var(--navy-dark);">Key Action</span>
-                <p id="modalAction" style="margin-bottom:0; font-weight:500; color:#000;">...</p>
-            </div>
+            <span id="modalSubtitle">Deep Dive Analysis</span>
+            <h2 id="modalTitle">Title</h2>
+            <div id="modalBodyContent" class="report-content"></div>
         </div>
     </div>
 
@@ -500,169 +533,397 @@
     </div>
 
     <script>
-        /* --- DATA STORE --- */
-        const reportData = {
-            charts: {
-                lq: {
-                    // Dati corretti e dinamici 2017 vs 2023
-                    y2017: {
-                        labels: ['Altre attività estrattive', 'Trasporto aereo', 'Riparazione macchinari', 'Prod. farmaceutici', 'Raccolta rifiuti'],
-                        data: [48.0, 43.2, 24.7, 12.4, 10.4]
-                    },
-                    y2023: {
-                        labels: ['Trasporto aereo', 'Altre attività estrattive', 'Riparazione macchinari', 'Prod. farmaceutici', 'Ingegneria civile'],
-                        data: [25.5, 16.9, 7.8, 4.5, 3.7]
-                    }
-                },
-                shc: {
-                    y2017: {
-                        labels: ['Costr. Edifici', 'Rip. Macchinari', 'Att. Estrattive', 'Prod. Minerali', 'Ing. Civile'],
-                        data: [399, 97, 84, 49, 47]
-                    },
-                    y2023: {
-                        labels: ['Costr. Edifici', 'Costr. Specializzate', 'Trasporti', 'Farmaceutica', 'Servizi'],
-                        data: [286, 270, 200, 165, 131]
-                    }
-                },
-                pillars: {
-                    labels: ['Costr. Specializzate', 'Costr. Edifici', 'Sanità', 'Istruzione', 'Commercio', 'Trasporti'],
-                    data2017: [55, 442, 27, 71, 33, 9],
-                    data2023: [517, 419, 381, 352, 330, 330]
-                }
+        /* --- 1. DATA FOR CHARTS --- */
+        const chartData = {
+            lq: {
+                y2017: { labels: ['Altre att. estrattive', 'Trasporto aereo', 'Rip. macchinari', 'Prod. farmaceutici', 'Raccolta rifiuti'], data: [48.0, 43.2, 24.7, 12.4, 10.4] },
+                y2023: { labels: ['Trasporto aereo', 'Altre att. estrattive', 'Rip. macchinari', 'Prod. farmaceutici', 'Ing. civile'], data: [25.5, 16.9, 7.8, 4.5, 3.7] }
             },
-            proposals: {
-                1: {
-                    title: "Riviera Tech-Craft Campus",
-                    sub: "Human Capital Development",
-                    context: "Paradosso strutturale: presenza di industrie high-tech (Droni, Pharma) ma carenza cronica di tecnici specializzati locali.",
-                    goal: "Trasformare la SPAI Biasca in un hub inter-aziendale per garantire una pipeline di talenti 'sticky' al territorio.",
-                    action: "Co-progettazione dei curricula con le aziende leader e moduli flessibili per il reskilling della forza lavoro adulta."
-                },
-                2: {
-                    title: "Digital Supply Chain Integration",
-                    sub: "Operational Excellence",
-                    context: "Il settore edile è un pilastro economico ma frammentato in micro-imprese con bassa capacità di innovazione singola.",
-                    goal: "Creare una 'Impresa Virtuale' integrata tramite il digitale per competere su qualità e complessità, non solo sul prezzo.",
-                    action: "Bando NPR per l'adozione di standard BIM condivisi, orchestrati da un General Contractor locale."
-                },
-                3: {
-                    title: "Integrated Tourism Voucher",
-                    sub: "Customer Experience",
-                    context: "Offerta turistica ricca (Canyoning, Grotti) ma disarticolata. Il turista deve gestire troppi touchpoint.",
-                    goal: "Unificare l'esperienza utente in un pacchetto 'One-Click' che includa attività, vitto, alloggio e mobilità.",
-                    action: "Voucher innovazione per digitalizzare le prenotazioni e integrare navette dedicate nel pacchetto."
-                }
+            shc: {
+                y2017: { labels: ['Costr. Edifici', 'Rip. Macchinari', 'Att. Estrattive', 'Prod. Minerali', 'Ing. Civile'], data: [399, 97, 84, 49, 47] },
+                y2023: { labels: ['Costr. Edifici', 'Costr. Specializzate', 'Trasporti', 'Farmaceutica', 'Servizi'], data: [286, 270, 200, 165, 131] }
+            },
+            pillars: {
+                labels: ['Costr. Specializzate', 'Costr. Edifici', 'Sanità', 'Istruzione', 'Commercio', 'Trasporti'],
+                data2017: [55, 442, 27, 71, 33, 9],
+                data2023: [517, 419, 381, 352, 330, 330]
             }
         };
 
-        /* --- CHART CONFIGURATION (McKinsey Style) --- */
-        Chart.defaults.font.family = "'Inter', sans-serif";
-        Chart.defaults.color = '#666';
-        const colorPrimary = '#051c2c'; // Navy
-        const colorSecondary = '#004c97'; // Light Blue
-        const colorGrey = '#e0e0e0';
+        /* --- 2. REPORT TEXTS (McKinsey Style) --- */
+        const reportTexts = {
+            shc: {
+                title: "Analisi del Clustering Orizzontale",
+                2017: `
+                    <h4>Struttura polarizzata e tradizionale</h4>
+                    <p>L’analisi del clustering orizzontale (Sₕc) per l’anno 2017 conferma una struttura produttiva fortemente polarizzata, con una specializzazione settoriale marcata e una base economica prevalentemente tradizionale.</p>
+                    
+                    <h4>Cluster dominante: filiera edilizia</h4>
+                    <p>Il cluster nettamente dominante è rappresentato dalla filiera edilizia, in particolare da:</p>
+                    <ul>
+                        <li><strong>Costruzione di edifici (41)</strong>: che registra un valore di Sₕc estremamente elevato e di gran lunga superiore a tutti gli altri settori;</li>
+                        <li><strong>Riparazione di macchinari (33)</strong>: che emerge come secondo cluster rilevante, indicando una forte presenza di attività di manutenzione e supporto tecnico legate al tessuto produttivo locale.</li>
+                    </ul>
+                    <p>La centralità della costruzione riflette una specializzazione storica del territorio, basata su imprese locali consolidate, competenze operative diffuse e una domanda prevalentemente interna, legata allo sviluppo infrastrutturale e immobiliare.</p>
 
+                    <h4>Cluster secondari e attività di supporto</h4>
+                    <p>Accanto al nucleo edilizio emergono alcuni cluster secondari, caratterizzati da valori positivi ma significativamente inferiori:</p>
+                    <ul>
+                        <li>Attività estrattive, coerenti con il profilo territoriale e con il fabbisogno della filiera delle costruzioni;</li>
+                        <li>Fabbricazione di prodotti minerali non metalliferi, anch’essa strettamente connessa alla produzione edilizia;</li>
+                        <li>Ingegneria civile e trasporto aereo, che svolgono un ruolo di supporto tecnico e logistico, ma senza raggiungere una massa critica paragonabile al settore principale.</li>
+                    </ul>
+                    <p>Questi comparti contribuiscono a rafforzare la coerenza orizzontale del sistema produttivo, ma restano funzionalmente subordinati al cluster edilizio.</p>
+
+                    <h4>Settori marginali e bassa diversificazione</h4>
+                    <p>Numerosi settori presentano valori di clustering positivi ma molto contenuti, tra cui agricoltura e silvicoltura, istruzione, stampa e riproduzione, noleggio e leasing. Il loro contributo alla struttura economica complessiva risulta limitato, senza un impatto significativo in termini di specializzazione o capacità trainante.</p>
+
+                    <h4>Assenze strutturali e debolezza delle filiere avanzate</h4>
+                    <p>L’analisi del 2017 evidenzia una marcata sottorappresentazione – o assenza – dei settori tipici delle economie urbane avanzate, in particolare: ICT e servizi informatici avanzati, ricerca e sviluppo, servizi finanziari e professionali ad alta intensità di conoscenza, elettronica e tecnologie digitali.</p>
+                    <p>Questa configurazione segnala una limitata integrazione del territorio nelle filiere terziarie avanzate, con una struttura economica ancora fortemente ancorata a settori materiali e a basso contenuto tecnologico.</p>
+                `,
+                2023: `
+                    <h4>Transizione verso un sistema multipilastro</h4>
+                    <p>Il cluster dominante è rappresentato dalla filiera edilizia:</p>
+                    <ul>
+                        <li><strong>Costruzione di edifici (41)</strong> e <strong>lavori di costruzione specializzati (43)</strong> mostrano i valori più elevati di Sₕc, indicando una concentrazione strutturale ben superiore all’atteso. Ciò riflette una specializzazione storica e consolidata del distretto, sostenuta da imprese locali, competenze tecniche e domanda territoriale.</li>
+                    </ul>
+
+                    <h4>Cluster secondari in ascesa</h4>
+                    <p>Accanto a questo nucleo principale emergono cluster secondari:</p>
+                    <ul>
+                        <li>Trasporto terrestre,</li>
+                        <li>Industria farmaceutica,</li>
+                        <li>Servizi personali,</li>
+                        <li>Riparazione di macchinari,</li>
+                        <li>Attività estrattive,</li>
+                    </ul>
+                    <p>che rafforzano la coerenza orizzontale del sistema produttivo, fungendo da attività complementari e di supporto tecnico-logistico.</p>
+                    <p>Ulteriori settori presentano valori positivi più contenuti (Sₕc tra 40 e 90), contribuendo alla diversificazione funzionale, ma senza assumere un ruolo trainante.</p>
+
+                    <h4>Gap Strutturali</h4>
+                    <p>Dall’analisi complessiva emerge invece una marcata sottorappresentazione dei comparti:</p>
+                    <ul>
+                        <li>ICT e consulenza informatica,</li>
+                        <li>servizi finanziari,</li>
+                        <li>ricerca e sviluppo,</li>
+                        <li>commercio all’ingrosso avanzato,</li>
+                        <li>elettronica e tecnologie ad alta intensità di conoscenza.</li>
+                    </ul>
+                    <p>Nel complesso, la Riviera si configura come un distretto a forte clustering produttivo e infrastrutturale, con una debole integrazione nelle filiere terziarie avanzate tipiche dei poli urbani maggiori.</p>
+                `
+            },
+            lq: {
+                title: "Indice di Specializzazione (LQ)",
+                2017: `
+                    <h4>Profilo di specializzazione estrema</h4>
+                    <p>L’Indice di Localizzazione (LQ) misura il grado di specializzazione relativa di un settore confrontando il suo peso occupazionale a livello locale con quello osservato a livello nazionale.</p>
+                    <p>Nel 2017, la Riviera presenta un profilo di specializzazione estremamente concentrato, con alcuni comparti che mostrano valori di LQ molto elevati, nettamente superiori alla media nazionale.</p>
+
+                    <h4>Settori a massima specializzazione relativa</h4>
+                    <p>I settori con i valori di LQ più elevati nel 2017 sono:</p>
+                    <ul>
+                        <li><strong>Attività estrattive</strong>: registrano il valore di LQ più alto in assoluto, configurandosi come una specializzazione strutturale del territorio;</li>
+                        <li><strong>Trasporto aereo</strong>: anch’esso caratterizzato da una concentrazione eccezionalmente superiore alla media nazionale;</li>
+                        <li><strong>Riparazione di macchinari</strong>: evidenzia una forte presenza di competenze tecniche e di attività di manutenzione industriale specializzata.</li>
+                    </ul>
+                    <p>Questi comparti delineano un sistema produttivo fortemente orientato verso attività materiali, infrastrutturali e tecniche, con una chiara vocazione operativa.</p>
+
+                    <h4>Specializzazioni secondarie ma significative</h4>
+                    <p>Accanto ai cluster principali, emergono ulteriori settori con valori di LQ ampiamente superiori all’unità:</p>
+                    <ul>
+                        <li>Industria farmaceutica, presente in forma concentrata ma con un peso occupazionale limitato;</li>
+                        <li>Raccolta e gestione dei rifiuti e attività di risanamento, che indicano una specializzazione nei servizi ambientali;</li>
+                        <li>Estrazione di petrolio e gas e industria del legno, settori coerenti con una base produttiva tradizionale e territoriale.</li>
+                    </ul>
+                    <p>Questi comparti contribuiscono alla diversificazione funzionale, pur senza costituire un vero asse trainante dell’economia locale.</p>
+
+                    <h4>Lettura critica dei valori di LQ elevati</h4>
+                    <p>I valori di LQ osservati nel 2017 risultano in diversi casi estremamente elevati. Tale fenomeno è parzialmente amplificato dalla ridotta scala occupazionale del distretto, che tende a esasperare gli scostamenti relativi. Tuttavia, l’ampiezza delle differenze rispetto alla media nazionale suggerisce la presenza di specializzazioni reali e consolidate, piuttosto che semplici effetti statistici.</p>
+
+                    <h4>Profilo complessivo del sistema economico nel 2017</h4>
+                    <p>Nel complesso, la Riviera nel 2017 si configura come un territorio fortemente specializzato in pochi settori chiave, caratterizzato da elevata concentrazione produttiva e con una limitata presenza di attività terziarie avanzate e knowledge-intensive. Il modello economico appare quindi robusto ma poco diversificato, con una dipendenza significativa da comparti tradizionali e infrastrutturali, anticipando solo in parte le traiettorie di evoluzione osservabili negli anni successivi.</p>
+                `,
+                2023: `
+                    <h4>Evoluzione verso una specializzazione selettiva</h4>
+                    <p>L’Indice di Localizzazione (LQ) misura il grado di specializzazione relativa di un settore confrontando il suo peso occupazionale a livello locale con quello osservato a livello nazionale. Valori di LQ superiori a 1 indicano una sovrarappresentazione settoriale, mentre valori inferiori a 1 segnalano una presenza economica marginale nel contesto territoriale analizzato.</p>
+                    <p>Nel caso della Riviera, l’analisi 2023 evidenzia un profilo di specializzazione marcata e selettiva, con alcuni comparti che mostrano concentrazioni occupazionali nettamente superiori alla media nazionale.</p>
+
+                    <h4>Settori a più alta specializzazione relativa</h4>
+                    <p>Emergono in particolare specializzazioni molto elevate nei seguenti ambiti:</p>
+                    <ul>
+                        <li><strong>Trasporto aereo</strong>: presenta un valore di LQ eccezionalmente alto, indicativo di una concentrazione fortemente atipica rispetto alla struttura nazionale;</li>
+                        <li><strong>Attività estrattive</strong>: coerenti con le caratteristiche territoriali e con la vocazione produttiva storica dell’area;</li>
+                        <li><strong>Riparazione di macchinari</strong>: segnala la presenza di competenze tecniche specializzate e di un tessuto di supporto industriale qualificato.</li>
+                    </ul>
+                    <p>Accanto a questi comparti, si osservano valori di LQ significativamente superiori alla soglia di specializzazione anche in: industria farmaceutica, seppur circoscritta dimensionalmente; ingegneria civile e costruzione di edifici, che confermano il ruolo centrale della filiera edilizia; industria del legno, materiali minerali e servizi di riparazione tecnica, che rafforzano la coerenza produttiva del sistema locale.</p>
+
+                    <h4>Interpretazione dei valori elevati di LQ</h4>
+                    <p>Alcuni settori mostrano valori di LQ estremamente elevati, in particolare trasporto aereo ed estrattivo. Tali risultati sono in parte amplificati dalla ridotta scala occupazionale complessiva del distretto, che tende ad accentuare le differenze relative. Tuttavia, l’ampiezza degli scostamenti osservati suggerisce la presenza di cluster settoriali reali e strutturati, e non di semplici effetti statistici.</p>
+
+                    <h4>Profilo complessivo del sistema produttivo</h4>
+                    <p>Nel complesso, la Riviera nel 2023 si configura come un territorio:</p>
+                    <ul>
+                        <li>fortemente specializzato in settori materiali, tecnici e infrastrutturali;</li>
+                        <li>con una base produttiva concentrata su edilizia, estrazione, manutenzione industriale e logistica;</li>
+                        <li>caratterizzato da una limitata presenza di settori terziari avanzati e knowledge-intensive, che rimangono sottorappresentati rispetto alla media nazionale.</li>
+                    </ul>
+                    <p>Questa struttura evidenzia un modello di sviluppo robusto ma poco diversificato, nel quale la competitività locale è legata principalmente a competenze operative e tecniche, più che a filiere ad alta intensità di conoscenza.</p>
+                `
+            },
+            pillars: {
+                title: "Evoluzione Strutturale: Verso un Sistema Multipilastro",
+                standard: `
+                    <h4>Crollo della concentrazione e diversificazione</h4>
+                    <p>La Riviera non è più un’economia a pilastro unico, ma un sistema multipilastro, in cui il peso occupazionale è ripartito in modo relativamente equilibrato tra sei settori principali:</p>
+                    <ul>
+                        <li><strong>Lavori di costruzione specializzati</strong>: 517 addetti</li>
+                        <li><strong>Costruzione di edifici</strong>: 419 addetti</li>
+                        <li><strong>Sanità</strong>: 381 addetti</li>
+                        <li><strong>Istruzione</strong>: 352 addetti</li>
+                        <li><strong>Trasporti e logistica</strong>: 330 addetti</li>
+                        <li><strong>Commercio al dettaglio</strong>: 330 addetti</li>
+                    </ul>
+                    <p>Questa configurazione dimostra che il crollo dell’indice di concentrazione non è un effetto statistico, ma il risultato di una reale riallocazione della base occupazionale su più settori di dimensione comparabile.</p>
+                `
+            }
+        };
+
+        /* --- 3. PROPOSALS DATA (With HTML Content & Images) --- */
+        const proposalsData = {
+            1: {
+                title: "Riviera Tech-Craft Campus",
+                subtitle: "Human Capital Development",
+                // Updated Filename per your request
+                image: "proposta1.jpg", 
+                html: `
+                    <h4>Executive Summary</h4>
+                    <p>La Riviera presenta un paradosso strutturale: la presenza di imprese industriali avanzate convive con una persistente difficoltà nel reperire competenze tecniche specialistiche. La proposta Riviera Tech-Craft Campus affronta questo disallineamento trasformando il CPT/SPAI di Biasca in un centro di competenza inter-aziendale fondato sul paradigma della formazione duale 4.0. L’obiettivo è produrre capitale umano qualificato localmente, riducendo la dipendenza da risorse esterne e rafforzando la competitività strutturale del territorio.</p>
+
+                    <h4>1. Contesto e problema</h4>
+                    <p>La struttura produttiva della Riviera include settori ad alta intensità tecnologica (farmaceutico, costruzioni avanzate, manutenzione industriale) che richiedono competenze tecniche elevate e in continua evoluzione. Tuttavia, il sistema formativo locale è storicamente orientato a modelli tradizionali, con tempi di adattamento lenti rispetto alla domanda delle imprese. Il risultato è un mismatch di competenze che genera costi elevati di recruiting esterno, ritardi operativi e un rischio di indebolimento competitivo nel medio periodo.</p>
+
+                    <h4>2. Obiettivo strategico</h4>
+                    <p>Costruire un ecosistema territoriale della formazione tecnica avanzata capace di:</p>
+                    <ul>
+                        <li>allineare strutturalmente offerta formativa e domanda industriale;</li>
+                        <li>accelerare l’aggiornamento delle competenze;</li>
+                        <li>consolidare una base locale di capitale umano qualificato.</li>
+                    </ul>
+                    <p>L’obiettivo non è l’espansione quantitativa dell’offerta formativa, ma la trasformazione qualitativa del modello.</p>
+
+                    <h4>3. Soluzione proposta</h4>
+                    <p>La proposta prevede la creazione del Riviera Tech-Craft Campus, un centro di competenza inter-aziendale che:</p>
+                    <ul>
+                        <li>orchestra la formazione duale 4.0;</li>
+                        <li>coinvolge direttamente le imprese leader nella co-progettazione dei curricula;</li>
+                        <li>integra formazione iniziale, apprendistato avanzato e riqualificazione della forza lavoro adulta.</li>
+                    </ul>
+                    <p>Il Campus agisce come ponte strutturale tra sistema produttivo e sistema formativo.</p>
+
+                    <h4>4. Modello operativo</h4>
+                    <p>Il modello si fonda su quattro pilastri:</p>
+                    <ul>
+                        <li>Co-progettazione dei curricula con i cluster industriali locali</li>
+                        <li>Laboratori avanzati (digitale, automazione, VR, manutenzione 4.0)</li>
+                        <li>Apprendistato integrato tra scuola e contesti produttivi reali</li>
+                        <li>Formazione continua e reskilling per la forza lavoro esistente</li>
+                    </ul>
+                    <p>Il ruolo della scuola evolve da fornitore di contenuti a orchestratore dell’ecosistema formativo.</p>
+
+                    <h4>5. Impatto atteso</h4>
+                    <ul>
+                        <li>Riduzione strutturale della dipendenza da competenze esterne</li>
+                        <li>Aumento della produttività industriale locale</li>
+                        <li>Migliore qualità occupazionale delle professioni tecniche</li>
+                        <li>Rafforzamento della resilienza economica territoriale</li>
+                    </ul>
+
+                    <h4>6. Coerenza place-based e space-blind</h4>
+                    <ul>
+                        <li><strong>Place-based</strong>: radicamento nei cluster produttivi della Riviera e valorizzazione del capitale istituzionale esistente.</li>
+                        <li><strong>Space-blind</strong>: allineamento a standard federali e internazionali, garantendo trasferibilità e riconoscibilità delle competenze.</li>
+                    </ul>
+                `
+            },
+            2: {
+                title: "Digital Supply Chain Integration",
+                subtitle: "Operational Excellence",
+                // Updated Filename
+                image: "proposta2.jpg",
+                html: `
+                    <h4>Executive Summary</h4>
+                    <p>Il settore delle costruzioni della Riviera è caratterizzato da imprese capofila strutturate e da un’elevata densità di micro-imprese, operanti in un contesto altamente competitivo. Questa frammentazione limita la diffusione dell’innovazione di processo e spinge la competizione verso il prezzo. La proposta Digital Supply Chain Integration mira a trasformare la filiera edilizia in un sistema coordinato attraverso l’adozione di standard digitali condivisi, rafforzando produttività e qualità complessiva.</p>
+
+                    <h4>1. Contesto e problema</h4>
+                    <p>Nonostante la presenza di imprese leader, la filiera edilizia locale soffre di: scarsa integrazione informativa; elevati costi di coordinamento; errori operativi e rilavorazioni. Il problema non è dimensionale, ma organizzativo: l’assenza di una supply chain integrata impedisce alle micro-imprese di beneficiare dell’innovazione.</p>
+
+                    <h4>2. Obiettivo strategico</h4>
+                    <p>Trasformare una filiera frammentata in una supply chain coordinata, capace di operare come un sistema unitario mantenendo l’autonomia delle singole imprese. L’innovazione perseguita è incrementale e organizzativa, focalizzata su processi e gestione del ciclo di vita dell’opera.</p>
+
+                    <h4>3. Soluzione proposta</h4>
+                    <p>Attivazione di un Bando NPR per l’innovazione di filiera, destinato esclusivamente a progetti collaborativi guidati da un’impresa capofila (general contractor o studio tecnico). Il focus non è l’investimento isolato, ma l’adozione di standard digitali condivisi, in particolare BIM.</p>
+
+                    <h4>4. Modello operativo</h4>
+                    <ul>
+                        <li>Adozione di BIM secondo standard ISO e normative VSA/SIA</li>
+                        <li>Piattaforme interoperabili per la condivisione dei dati di progetto e cantiere</li>
+                        <li>Strumenti digitali semplificati per le micro-imprese</li>
+                        <li>Coordinamento centralizzato della supply chain</li>
+                    </ul>
+                    <p>Il sistema consente alle imprese di operare come una “impresa virtuale”.</p>
+
+                    <h4>5. Impatto atteso</h4>
+                    <ul>
+                        <li>Riduzione dei costi di transazione e delle rilavorazioni</li>
+                        <li>Aumento della produttività e della qualità dell’opera</li>
+                        <li>Spostamento della competizione dal prezzo al valore</li>
+                        <li>Rafforzamento strutturale della filiera edilizia locale</li>
+                    </ul>
+
+                    <h4>6. Coerenza place-based e space-blind</h4>
+                    <ul>
+                        <li><strong>Place-based</strong>: intervento costruito sulla filiera edilizia storica della Riviera.</li>
+                        <li><strong>Space-blind</strong>: standard digitali neutrali rispetto allo spazio, abilitanti l’accesso a mercati più ampi.</li>
+                    </ul>
+                `
+            },
+            3: {
+                title: "Integrated Tourism Voucher",
+                subtitle: "Customer Experience",
+                // Updated Filename
+                image: "proposta3.jpg",
+                html: `
+                    <h4>Executive Summary</h4>
+                    <p>Il canyoning e i grotti di Biasca rappresentano asset turistici distintivi della Riviera, oggi sottovalorizzati a causa di un’offerta frammentata e poco coordinata. L’Integrated Tourism Voucher mira a rafforzare la capacità innovativa delle imprese turistiche locali, favorendo l’integrazione dei servizi, la digitalizzazione delle prenotazioni e il miglioramento della mobilità turistica.</p>
+
+                    <h4>1. Contesto e problema</h4>
+                    <p>Il sistema turistico locale è composto da micro-operatori (guide canyoning, grotti, strutture ricettive) che operano in modo isolato. Questa frammentazione riduce: la visibilità dell’offerta; la qualità dell’esperienza del visitatore; la capacità di attrarre soggiorni più lunghi.</p>
+
+                    <h4>2. Obiettivo strategico</h4>
+                    <p>Trasformare un’offerta turistica dispersa in un ecosistema coordinato, capace di: aumentare il valore medio del soggiorno; migliorare l’esperienza del visitatore; rafforzare la competitività complessiva della destinazione.</p>
+
+                    <h4>3. Soluzione proposta</h4>
+                    <p>Introduzione di un Innovation Voucher turistico, utilizzabile dalle imprese locali per acquistare servizi innovativi finalizzati all’integrazione dell’offerta. I voucher finanziano:</p>
+                    <ul>
+                        <li>creazione di pacchetti integrati (canyoning + grotti + alloggi);</li>
+                        <li>digitalizzazione delle prenotazioni e dei pagamenti;</li>
+                        <li>miglioramento della mobilità turistica tramite navette coordinate.</li>
+                    </ul>
+
+                    <h4>4. Modello operativo</h4>
+                    <ul>
+                        <li>Pacchetti base (giornalieri) e pacchetti weekend</li>
+                        <li>Piattaforma unica di prenotazione</li>
+                        <li>Coordinamento dei servizi di trasporto</li>
+                        <li>Ruolo di supporto dell’Ufficio per lo sviluppo economico del Ticino</li>
+                    </ul>
+                    <p>Il sistema consente di passare da singoli servizi a esperienze turistiche complete.</p>
+
+                    <h4>5. Impatto atteso</h4>
+                    <ul>
+                        <li>Aumento della permanenza media dei turisti</li>
+                        <li>Migliore distribuzione dei benefici economici sul territorio</li>
+                        <li>Rafforzamento dell’identità turistica della Riviera</li>
+                        <li>Crescita della qualità percepita dell’offerta</li>
+                    </ul>
+
+                    <h4>6. Coerenza place-based e space-blind</h4>
+                    <ul>
+                        <li><strong>Place-based</strong>: valorizzazione di asset naturali e culturali unici del territorio.</li>
+                        <li><strong>Space-blind</strong>: strumenti digitali e modelli replicabili, compatibili con mercati turistici più ampi.</li>
+                    </ul>
+                `
+            }
+        };
+
+        /* --- 4. CHART JS (Logic Preserved) --- */
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = '#555';
+        const cols = { p: '#051c2c', s: '#004c97', g: '#cccccc' };
         let lqChart, shcChart, pillarsChart;
 
         document.addEventListener('DOMContentLoaded', () => {
             initCharts();
-            document.getElementById('yearToggle').addEventListener('change', function() {
-                updateCharts(this.checked); // checked = 2023
-            });
+            document.getElementById('yearToggle').addEventListener('change', function() { updateCharts(this.checked); });
         });
 
         function initCharts() {
-            // LQ CHART - Inizializza con dati 2017 dinamici
-            const ctxLQ = document.getElementById('lqChart').getContext('2d');
-            lqChart = new Chart(ctxLQ, {
+            // LQ
+            lqChart = new Chart(document.getElementById('lqChart'), {
                 type: 'bar',
-                data: {
-                    labels: reportData.charts.lq.y2017.labels,
-                    datasets: [{
-                        label: '2017',
-                        data: reportData.charts.lq.y2017.data,
-                        backgroundColor: colorGrey,
-                        barPercentage: 0.6
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: { x: { grid: { display: false } }, y: { grid: { display: false } } }
-                }
+                data: { labels: chartData.lq.y2017.labels, datasets: [{ label: '2017', data: chartData.lq.y2017.data, backgroundColor: cols.g, barPercentage: 0.6 }] },
+                options: { indexAxis: 'y', maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: {display:false} }, y: { grid: {display:false} } } }
             });
-
-            // SHC CHART
-            const ctxShc = document.getElementById('shcChart').getContext('2d');
-            shcChart = new Chart(ctxShc, {
+            // SHC
+            shcChart = new Chart(document.getElementById('shcChart'), {
                 type: 'bar',
-                data: {
-                    labels: reportData.charts.shc.y2017.labels,
-                    datasets: [{
-                        label: 'Cluster Intensity',
-                        data: reportData.charts.shc.y2017.data,
-                        backgroundColor: colorSecondary,
-                        borderRadius: 2,
-                        barPercentage: 0.6
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: { x: { grid: { borderDash: [2, 2] } }, y: { grid: { display: false } } }
-                }
+                data: { labels: chartData.shc.y2017.labels, datasets: [{ label: 'Intensity', data: chartData.shc.y2017.data, backgroundColor: cols.s, barPercentage: 0.6 }] },
+                options: { indexAxis: 'y', maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: {borderDash:[2,2]} }, y: { grid: {display:false} } } }
             });
-
-            // PILLARS CHART
-            const ctxPillars = document.getElementById('pillarsChart').getContext('2d');
-            pillarsChart = new Chart(ctxPillars, {
+            // Pillars
+            pillarsChart = new Chart(document.getElementById('pillarsChart'), {
                 type: 'bar',
-                data: {
-                    labels: reportData.charts.pillars.labels,
-                    datasets: [
-                        { label: '2017', data: reportData.charts.pillars.data2017, backgroundColor: '#ccc', barPercentage: 0.7 },
-                        { label: '2023', data: reportData.charts.pillars.data2023, backgroundColor: colorPrimary, barPercentage: 0.7 }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom' } },
-                    scales: { y: { grid: { display: false } }, x: { grid: { borderDash: [2, 2] } } }
-                }
+                data: { labels: chartData.pillars.labels, datasets: [{ label: '2017', data: chartData.pillars.data2017, backgroundColor: cols.g }, { label: '2023', data: chartData.pillars.data2023, backgroundColor: cols.p }] },
+                options: { maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } }, scales: { x: { grid: {borderDash:[2,2]} }, y: { grid: {display:false} } } }
             });
         }
 
         function updateCharts(is2023) {
-            // Update LQ (Labels & Data cambiano!)
-            const targetLQ = is2023 ? reportData.charts.lq.y2023 : reportData.charts.lq.y2017;
-            const newColorLQ = is2023 ? colorPrimary : colorGrey;
-            
-            lqChart.data.labels = targetLQ.labels;
-            lqChart.data.datasets[0].data = targetLQ.data;
-            lqChart.data.datasets[0].backgroundColor = newColorLQ;
-            lqChart.data.datasets[0].label = is2023 ? '2023' : '2017';
+            const y = is2023 ? 'y2023' : 'y2017';
+            // LQ
+            lqChart.data.labels = chartData.lq[y].labels;
+            lqChart.data.datasets[0].data = chartData.lq[y].data;
+            lqChart.data.datasets[0].backgroundColor = is2023 ? cols.p : cols.g;
             lqChart.update();
-
-            // Update SHC (Labels & Data cambiano!)
-            const targetShc = is2023 ? reportData.charts.shc.y2023 : reportData.charts.shc.y2017;
-            shcChart.data.labels = targetShc.labels;
-            shcChart.data.datasets[0].data = targetShc.data;
+            // SHC
+            shcChart.data.labels = chartData.shc[y].labels;
+            shcChart.data.datasets[0].data = chartData.shc[y].data;
             shcChart.update();
         }
 
-        /* --- UI LOGIC --- */
-        function openModal(id) {
-            const data = reportData.proposals[id];
-            document.getElementById('modalTitle').innerText = data.title;
-            document.getElementById('modalSubtitle').innerText = data.sub;
-            document.getElementById('modalContext').innerText = data.context;
-            document.getElementById('modalGoal').innerText = data.goal;
-            document.getElementById('modalAction').innerText = data.action;
+        /* --- 5. MODAL LOGIC (Updated for all types) --- */
+        
+        // Handles "Read Full Report" for Charts (LQ, SHC, Pillars)
+        function openReportModal(type) {
+            const is2023 = document.getElementById('yearToggle').checked;
+            const content = reportTexts[type];
+            let htmlContent = "";
+            let subTitle = "";
+
+            if (type === 'pillars') {
+                htmlContent = content.standard;
+                subTitle = "Structural Evolution Report";
+            } else {
+                const yearKey = is2023 ? 2023 : 2017;
+                htmlContent = content[yearKey];
+                subTitle = "Strategic Analysis - " + yearKey;
+            }
+            
+            document.getElementById('modalTitle').innerText = content.title;
+            document.getElementById('modalSubtitle').innerText = subTitle;
+            document.getElementById('modalBodyContent').innerHTML = htmlContent;
+            
+            document.getElementById('infoModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Handles "Read Full Report" for Proposals (Cards)
+        function openProposalModal(id) {
+            const p = proposalsData[id];
+            
+            document.getElementById('modalTitle').innerText = p.title;
+            document.getElementById('modalSubtitle').innerText = p.subtitle;
+            
+            // Inject Image + Full HTML Text (Added Click-to-Zoom Wrapper)
+            document.getElementById('modalBodyContent').innerHTML = `
+                <div class="proposal-img-container" onclick="openLightbox(this.querySelector('img'))">
+                    <img src="${p.image}" alt="${p.title}" onerror="this.parentNode.style.display='none'">
+                    <div class="img-overlay-hint"><i class="fas fa-search-plus"></i> Clicca per ingrandire l'infografica</div>
+                </div>
+                ${p.html}
+            `;
+            
             document.getElementById('infoModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
@@ -673,9 +934,8 @@
         }
 
         function openLightbox(img) {
-            const lightbox = document.getElementById('lightbox');
             document.getElementById('lightboxImg').src = img.src;
-            lightbox.style.display = 'flex';
+            document.getElementById('lightbox').style.display = 'flex';
         }
 
         window.onclick = function(e) {
